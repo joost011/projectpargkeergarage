@@ -119,7 +119,7 @@ public class SimulatorView extends JFrame {
         return null;
     }
     
-    public Location getReservationLocation() {
+    public Location getParkingPassLocation() {
     	 for (int floor = 2; floor < getNumberOfFloors(); floor++) {
              for (int row = 2; row < getNumberOfRows(); row++) {
                  for (int place = 0; place < getNumberOfPlaces(); place++) {

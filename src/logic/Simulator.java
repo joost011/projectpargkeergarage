@@ -128,8 +128,8 @@ public final class Simulator {
     			simulatorView.getNumberOfOpenSpots()>0 && 
     			i<enterSpeed) {
             Car car = queue.removeCar();
-            if(car instanceof ReservationCar) {
-            	Location freeResLocation = simulatorView.getReservationLocation();
+            if(car instanceof ParkingPassCar) {
+            	Location freeResLocation = simulatorView.getParkingPassLocation();
             	simulatorView.setCarAt(freeResLocation, car);
             }
             else {
