@@ -16,7 +16,8 @@ public class SimulatorView extends JFrame {
     private JFrame screen;
     private Controller controller;
     private StatisticsView statics;
-
+    private JTabbedPane tabs;
+    private PieChartView piechart;
 
 
     public SimulatorView(int numberOfFloors, int numberOfRows, int numberOfPlaces, Simulator simulator) {
@@ -29,17 +30,25 @@ public class SimulatorView extends JFrame {
         controller = new Controller(simulator);
         
         carParkView = new CarParkView();
+        piechart = new PieChartView("Pie Chart Test", "OS comparison");
+       
+        tabs = new JTabbedPane();
+		tabs.setPreferredSize(new Dimension(300, 10));
+		tabs.addTab("PieChart", piechart.getChart());
         
         screen=new JFrame("Project Parkeergarage");
         Container contentPane = screen.getContentPane();
         contentPane.add(carParkView, BorderLayout.CENTER);
         contentPane.add(statics, BorderLayout.WEST);
         screen.getContentPane().add(controller, BorderLayout.SOUTH);
+        screen.getContentPane().add(tabs, BorderLayout.EAST);
         screen.pack();
-        screen.setSize(1000, 500);
+        screen.setSize(1300, 500);
         screen.setVisible(true);
 		screen.setResizable(false);
 		screen.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
+		
 
         updateView();
         
