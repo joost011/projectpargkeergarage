@@ -1,7 +1,10 @@
-package Parkeersimulator;
+package view;
 
-import javax.swing.*;
+
 import java.awt.*;
+import controller.*;
+import javax.swing.*;
+import logic.*;
 
 public class SimulatorView extends JFrame {
     private CarParkView carParkView;
@@ -10,24 +13,43 @@ public class SimulatorView extends JFrame {
     private int numberOfPlaces;
     private int numberOfOpenSpots;
     private Car[][][] cars;
+    private JFrame screen;
+    private Controller controller;
+    private StatisticsView statics;
 
-    public SimulatorView(int numberOfFloors, int numberOfRows, int numberOfPlaces) {
+
+
+    public SimulatorView(int numberOfFloors, int numberOfRows, int numberOfPlaces, Simulator simulator) {
         this.numberOfFloors = numberOfFloors;
         this.numberOfRows = numberOfRows;
         this.numberOfPlaces = numberOfPlaces;
         this.numberOfOpenSpots =numberOfFloors*numberOfRows*numberOfPlaces;
         cars = new Car[numberOfFloors][numberOfRows][numberOfPlaces];
+        statics = new StatisticsView();
+        controller = new Controller(simulator);
         
         carParkView = new CarParkView();
-
-        Container contentPane = getContentPane();
+        
+        screen=new JFrame("Project Parkeergarage");
+        Container contentPane = screen.getContentPane();
         contentPane.add(carParkView, BorderLayout.CENTER);
-        pack();
-        setVisible(true);
+        contentPane.add(statics, BorderLayout.WEST);
+        screen.getContentPane().add(controller, BorderLayout.SOUTH);
+        screen.pack();
+        screen.setSize(1000, 500);
+        screen.setVisible(true);
+		screen.setResizable(false);
+		screen.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         updateView();
+        
     }
-
+    
+    public StatisticsView statics() {
+    	return statics;
+    }
+    
+    
     public void updateView() {
         carParkView.updateView();
     }
@@ -91,10 +113,25 @@ public class SimulatorView extends JFrame {
                     if (getCarAt(location) == null) {
                         return location;
                     }
-                }
+                } 
             }
         }
         return null;
+    }
+    
+    public Location getReservationLocation() {
+    	 for (int floor = 2; floor < getNumberOfFloors(); floor++) {
+             for (int row = 2; row < getNumberOfRows(); row++) {
+                 for (int place = 0; place < getNumberOfPlaces(); place++) {
+                     Location location = new Location(floor, row, place);
+                     if (getCarAt(location) == null) {
+                         return location;
+                     }
+                 } 
+             }
+         }
+         return null;
+    	
     }
 
     public Car getFirstLeavingCar() {
@@ -206,5 +243,7 @@ public class SimulatorView extends JFrame {
                     10 - 1); // TODO use dynamic size or constants
         }
     }
+
+	
 
 }

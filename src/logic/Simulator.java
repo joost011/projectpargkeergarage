@@ -1,17 +1,22 @@
-package Parkeersimulator;
+package logic;
 
 import java.util.Random;
+import controller.*;
+import view.*;
 
-public class Simulator {
+public final class Simulator {
+
 	private static final String AD_HOC = "1";
 	private static final String PASS = "2";
-	
-	
+	private static final String RES = "3";
+		
 	private CarQueue entranceCarQueue;
+	private CarQueue entranceResQueue;
     private CarQueue entrancePassQueue;
     private CarQueue paymentCarQueue;
     private CarQueue exitCarQueue;
     private SimulatorView simulatorView;
+    public boolean run;
 
     private int day = 0;
     private int hour = 0;
@@ -27,22 +32,39 @@ public class Simulator {
     int enterSpeed = 3; // number of cars that can enter per minute
     int paymentSpeed = 7; // number of cars that can pay per minute
     int exitSpeed = 5; // number of cars that can leave per minute
-    
+
     public Simulator() {
         entranceCarQueue = new CarQueue();
         entrancePassQueue = new CarQueue();
+        entranceResQueue = new CarQueue();
         paymentCarQueue = new CarQueue();
         exitCarQueue = new CarQueue();
-        simulatorView = new SimulatorView(3, 6, 30);
+        simulatorView = new SimulatorView(3, 6, 30, this);
     }
+    
+    public void start() {
+    	this.run = true;
+    	run();
+    }
+    
+    public void stop() {
+    	this.run = false;
+    }
+    
+    
 
     public void run() {
-        for (int i = 0; i < 10000; i++) {
+    	do {
+        //for (int i = 0; i < 10000; i++) {
             tick();
-        }
+          //  updateViews();
+            //}
+    	}
+    	while(this.run == true);
     }
 
-    private void tick() {
+    public void tick() {
+    	simulatorView.statics().tijdEnDag();
     	advanceTime();
     	handleExit();
     	updateViews();
@@ -94,7 +116,9 @@ public class Simulator {
     	int numberOfCars=getNumberOfCars(weekDayArrivals, weekendArrivals);
         addArrivingCars(numberOfCars, AD_HOC);    	
     	numberOfCars=getNumberOfCars(weekDayPassArrivals, weekendPassArrivals);
-        addArrivingCars(numberOfCars, PASS);    	
+        addArrivingCars(numberOfCars, PASS);
+        numberOfCars=getNumberOfCars(weekDayPassArrivals, weekendPassArrivals);
+        addArrivingCars(numberOfCars, RES); 
     }
 
     private void carsEntering(CarQueue queue){
@@ -104,8 +128,14 @@ public class Simulator {
     			simulatorView.getNumberOfOpenSpots()>0 && 
     			i<enterSpeed) {
             Car car = queue.removeCar();
+            if(car instanceof ReservationCar) {
+            	Location freeResLocation = simulatorView.getReservationLocation();
+            	simulatorView.setCarAt(freeResLocation, car);
+            }
+            else {
             Location freeLocation = simulatorView.getFirstFreeLocation();
             simulatorView.setCarAt(freeLocation, car);
+            }
             i++;
         }
     }
@@ -154,9 +184,22 @@ public class Simulator {
                 : weekend;
 
         // Calculate the number of cars that arrive this minute.
+        int x;
+        if(simulatorView.statics().uur()==17 ||
+           simulatorView.statics().uur()==18 ||	
+           simulatorView.statics().uur()==19 ||
+           simulatorView.statics().uur()==20 ||
+           simulatorView.statics().uur()==21) {
+        	x = 300;
+        }
+        else {
+        	x = 60;
+        }
+         
         double standardDeviation = averageNumberOfCarsPerHour * 0.3;
+        
         double numberOfCarsPerHour = averageNumberOfCarsPerHour + random.nextGaussian() * standardDeviation;
-        return (int)Math.round(numberOfCarsPerHour / 60);	
+        return (int)Math.round(numberOfCarsPerHour / x);	
     }
     
     private void addArrivingCars(int numberOfCars, String type){
@@ -171,7 +214,11 @@ public class Simulator {
             for (int i = 0; i < numberOfCars; i++) {
             	entrancePassQueue.addCar(new ParkingPassCar());
             }
-            break;	            
+            break;	
+    	case RES:
+    		for (int i = 0; i < numberOfCars; i++) {
+            	entrancePassQueue.addCar(new ReservationCar());
+    		}
     	}
     }
     
@@ -179,6 +226,5 @@ public class Simulator {
     	simulatorView.removeCarAt(car.getLocation());
         exitCarQueue.addCar(car);
     }
-    
 
 }
