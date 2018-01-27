@@ -9,6 +9,7 @@ import runner.*;
 
 public class StatisticsView extends JPanel implements ActionListener{
 	
+	private JLabel snelheidlabel;
 	private JLabel dag;
 	private JLabel tijd;
 	private JLabel empty;
@@ -25,6 +26,7 @@ public class StatisticsView extends JPanel implements ActionListener{
 	private int uren = 0;
 	private String[] dagen;
 	private int x = 0;
+	private JTextField snelheid;
 	private JTextField weekdagaankomst;
 	private JTextField weekendaankomst;
 	private JTextField werkdagpasdaankomst;
@@ -45,6 +47,7 @@ public class StatisticsView extends JPanel implements ActionListener{
 		
 		viewpanel = new JPanel();
 		viewpanel.setLayout(new GridLayout(20,10));
+		
 		tijd = new JLabel("Tijdstip: 0:00");
 		viewpanel.add(tijd);
 		dag = new JLabel("Dag: Maandag");
@@ -52,6 +55,11 @@ public class StatisticsView extends JPanel implements ActionListener{
 		
 		empty = new JLabel("");
 		viewpanel.add(empty);
+		
+		snelheidlabel = new JLabel("Stappenpauze:");
+		viewpanel.add(snelheidlabel);
+		snelheid = new JTextField(String.valueOf(Simulator.getTickPause()));
+		viewpanel.add(snelheid);
 		
 		gemiddeld = new JLabel("Gemiddeld aantal auto's per uur:");
 		viewpanel.add(gemiddeld);
@@ -127,10 +135,12 @@ public class StatisticsView extends JPanel implements ActionListener{
 	
 	public void actionPerformed(java.awt.event.ActionEvent ev)
 	{
+		String snel = snelheid.getText();
 		String weekautos = weekdagaankomst.getText();
 		String weekendautos = weekendaankomst.getText();
 		String werkdagpasdautos = werkdagpasdaankomst.getText();
 		String weekendpasdautos = weekendpasdaankomst.getText();
+		Simulator.setTickPause(Integer.parseInt(snel));
 		Simulator.setWeekDayArrivals(Integer.parseInt(weekautos));
 		Simulator.setWeekendArrivals(Integer.parseInt(weekendautos));
 		Simulator.setweekDayPassArrivals(Integer.parseInt(werkdagpasdautos));

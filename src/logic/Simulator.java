@@ -22,7 +22,7 @@ public final class Simulator {
     private int hour = 0;
     private int minute = 0;
 
-    private int tickPause = 100;
+    private static int tickPause = 100;
 
     static int weekDayArrivals= 100; // average number of arriving cars per hour
     static int weekendArrivals = 200; // average number of arriving cars per hour
@@ -273,5 +273,13 @@ public final class Simulator {
     
     public static int getResCarQueue() {
     	return entranceResQueue.carsInQueue();
+    }
+    
+    public static int getTickPause() {
+    	return tickPause;
+    }
+    
+    public static void setTickPause(int TP) {
+    	tickPause = TP;
     }
 }
