@@ -32,6 +32,10 @@ public final class Simulator {
     int enterSpeed = 3; // number of cars that can enter per minute
     int paymentSpeed = 7; // number of cars that can pay per minute
     int exitSpeed = 5; // number of cars that can leave per minute
+    
+    static int maxEntranceCarQueue = 100; // maximum cars in the normal car queue
+    
+    static int doorgeredenAutos= 0;
 
     public Simulator() {
         entranceCarQueue = new CarQueue();
@@ -204,10 +208,18 @@ public final class Simulator {
     
     private void addArrivingCars(int numberOfCars, String type){
         // Add the cars to the back of the queue.
+    	Random rand = new Random();
+    	
     	switch(type) {
     	case AD_HOC: 
             for (int i = 0; i < numberOfCars; i++) {
-            	entranceCarQueue.addCar(new AdHocCar());
+            	int  n = rand.nextInt(maxEntranceCarQueue +1); // n = random number between 0 and the max number of normal cars in queue
+            	if (n > entranceCarQueue.carsInQueue() || entranceCarQueue.carsInQueue() == 0) {
+            		entranceCarQueue.addCar(new AdHocCar());
+            	}
+            	else {
+            		doorgeredenAutos++;
+            	}
             }
             break;
     	case PASS:
@@ -281,5 +293,17 @@ public final class Simulator {
     
     public static void setTickPause(int TP) {
     	tickPause = TP;
+    }
+    
+    public static int getMaxEntranceCarQueue() {
+    	return maxEntranceCarQueue;
+    }
+    
+    public static void setMaxEntranceCarQueue(int MECQ) {
+    	maxEntranceCarQueue = MECQ;
+    }
+    
+    public static int getDoorgeredenAutos() {
+    	return doorgeredenAutos;
     }
 }

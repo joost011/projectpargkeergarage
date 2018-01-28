@@ -43,7 +43,7 @@ public class SimulatorView extends JFrame {
         screen.getContentPane().add(controller, BorderLayout.SOUTH);
         screen.getContentPane().add(tabs, BorderLayout.EAST);
         screen.pack();
-        screen.setSize(1300, 600);
+        screen.setSize(1300, 650);
         screen.setVisible(true);
 		screen.setResizable(false);
 		screen.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

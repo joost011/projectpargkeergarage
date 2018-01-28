@@ -19,8 +19,10 @@ public class StatisticsView extends JPanel implements ActionListener{
 	private JLabel werkdagpas;
 	private JLabel weekendpas;
 	private JLabel gewonewachtrij;
+	private JLabel gewonedoorgereden;
 	private JLabel paswachtrij;
 	private JLabel reswachtrij;
+	private JLabel maxgewonewachtrijlabel;
 	private JButton update;
 	private JPanel viewpanel;
 	private int uren = 0;
@@ -31,6 +33,7 @@ public class StatisticsView extends JPanel implements ActionListener{
 	private JTextField weekendaankomst;
 	private JTextField werkdagpasdaankomst;
 	private JTextField weekendpasdaankomst;
+	private JTextField maxgewonewachtrij;
 	
 	
 
@@ -46,7 +49,7 @@ public class StatisticsView extends JPanel implements ActionListener{
 		dagen[6] = "Zondag";
 		
 		viewpanel = new JPanel();
-		viewpanel.setLayout(new GridLayout(20,10));
+		viewpanel.setLayout(new GridLayout(25,10));
 		
 		tijd = new JLabel("Tijdstip: 0:00");
 		viewpanel.add(tijd);
@@ -91,11 +94,19 @@ public class StatisticsView extends JPanel implements ActionListener{
 		gewonewachtrij = new JLabel("Gewone wachtrij: "+String.valueOf(Simulator.getNormalCarQueue()));
 		viewpanel.add(gewonewachtrij);
 		
+		gewonedoorgereden = new JLabel("Doorgereden: "+String.valueOf(Simulator.getDoorgeredenAutos()));
+		viewpanel.add(gewonedoorgereden);
+		
 		paswachtrij = new JLabel("Pas wachtrij: "+String.valueOf(Simulator.getPassCarQueue()));
 		viewpanel.add(paswachtrij);
 		
 		reswachtrij = new JLabel("Reservering wachtrij: "+String.valueOf(Simulator.getResCarQueue()));
 		viewpanel.add(reswachtrij);
+		
+		maxgewonewachtrijlabel = new JLabel("Maximale wachtrij (normale auto's)");
+		viewpanel.add(maxgewonewachtrijlabel);
+		maxgewonewachtrij = new JTextField(String.valueOf(Simulator.getMaxEntranceCarQueue()));
+		viewpanel.add(maxgewonewachtrij);
 		
 		add(viewpanel);
 		setVisible(true);
@@ -110,6 +121,7 @@ public class StatisticsView extends JPanel implements ActionListener{
 		gewonewachtrij.setText("Gewone wachtrij: "+String.valueOf(Simulator.getNormalCarQueue()));
 		paswachtrij.setText("Pas wachtrij: "+String.valueOf(Simulator.getPassCarQueue()));
 		reswachtrij.setText("Reservering wachtrij: "+String.valueOf(Simulator.getResCarQueue()));
+		gewonedoorgereden.setText("Doorgereden: "+String.valueOf(Simulator.getDoorgeredenAutos()));
 	}
 	
 	public void plusdag() {
@@ -140,10 +152,12 @@ public class StatisticsView extends JPanel implements ActionListener{
 		String weekendautos = weekendaankomst.getText();
 		String werkdagpasdautos = werkdagpasdaankomst.getText();
 		String weekendpasdautos = weekendpasdaankomst.getText();
+		String maximaalgewonewachtrij = maxgewonewachtrij.getText();
 		Simulator.setTickPause(Integer.parseInt(snel));
 		Simulator.setWeekDayArrivals(Integer.parseInt(weekautos));
 		Simulator.setWeekendArrivals(Integer.parseInt(weekendautos));
 		Simulator.setweekDayPassArrivals(Integer.parseInt(werkdagpasdautos));
 		Simulator.setweekendPassArrivals(Integer.parseInt(weekendpasdautos));
+		Simulator.setMaxEntranceCarQueue(Integer.parseInt(maximaalgewonewachtrij));
 	}
 }
