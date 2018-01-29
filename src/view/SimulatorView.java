@@ -45,7 +45,7 @@ public class SimulatorView extends JPanel {
         screen.getContentPane().add(controller, BorderLayout.SOUTH);
         screen.getContentPane().add(tabs, BorderLayout.EAST);
         screen.pack();
-        screen.setSize(1200, 500);
+        screen.setSize(1400, 650);
         screen.setVisible(true);
 		screen.setResizable(false);
 		screen.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -58,7 +58,6 @@ public class SimulatorView extends JPanel {
     public StatisticsView statics() {
     	return statics;
     }
-    
     
     public void updateView() {
         carParkView.updateView();

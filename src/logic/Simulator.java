@@ -11,9 +11,9 @@ public final class Simulator {
 	private static final String PASS = "2";
 	private static final String RES = "3";
 		
-	private CarQueue entranceCarQueue;
-	private CarQueue entranceResQueue;
-    private CarQueue entrancePassQueue;
+	private static CarQueue entranceCarQueue;
+	private static CarQueue entranceResQueue;
+    private static CarQueue entrancePassQueue;
     private CarQueue paymentCarQueue;
     private CarQueue exitCarQueue;
     private SimulatorView simulatorView;
@@ -28,16 +28,20 @@ public final class Simulator {
     private int currentRandCar = 0;
     private int currentEmpty = 0;
 
-    private int tickPause = 100;
+    private static int tickPause = 100;
 
-    int weekDayArrivals= 100; // average number of arriving cars per hour
-    int weekendArrivals = 200; // average number of arriving cars per hour
-    int weekDayPassArrivals= 50; // average number of arriving cars per hour
-    int weekendPassArrivals = 5; // average number of arriving cars per hour
+    static int weekDayArrivals= 100; // average number of arriving cars per hour
+    static int weekendArrivals = 200; // average number of arriving cars per hour
+    static int weekDayPassArrivals= 50; // average number of arriving cars per hour
+    static int weekendPassArrivals = 5; // average number of arriving cars per hour
 
     int enterSpeed = 3; // number of cars that can enter per minute
     int paymentSpeed = 7; // number of cars that can pay per minute
     int exitSpeed = 5; // number of cars that can leave per minute
+    
+    static int maxEntranceCarQueue = 100; // maximum cars in the normal car queue
+    
+    static int doorgeredenAutos= 0;
 
     public Simulator() {
         entranceCarQueue = new CarQueue();
@@ -252,10 +256,18 @@ public final class Simulator {
     
     private void addArrivingCars(int numberOfCars, String type){
         // Add the cars to the back of the queue.
+    	Random rand = new Random();
+    	
     	switch(type) {
     	case AD_HOC: 
             for (int i = 0; i < numberOfCars; i++) {
-            	entranceCarQueue.addCar(new AdHocCar());
+            	int  n = rand.nextInt(maxEntranceCarQueue +1); // n = random number between 0 and the max number of normal cars in queue
+            	if (n > entranceCarQueue.carsInQueue() || entranceCarQueue.carsInQueue() == 0) {
+            		entranceCarQueue.addCar(new AdHocCar());
+            	}
+            	else {
+            		doorgeredenAutos++;
+            	}
             }
             break;
     	case PASS:
@@ -274,5 +286,72 @@ public final class Simulator {
     	simulatorView.removeCarAt(car.getLocation());
         exitCarQueue.addCar(car);
     }
-
+    
+    public static int getWeekDayArrivals() {
+    	return weekDayArrivals;
+    }
+    
+    public static void setWeekDayArrivals(int WDA) {
+    	weekDayArrivals = WDA;
+    	System.out.println("Werkdag: "+weekDayArrivals);
+    }
+    
+    public static int getWeekendArrivals() {
+    	return weekendArrivals;
+    }
+    
+    public static void setWeekendArrivals(int WEA) {
+    	weekendArrivals = WEA;
+    	System.out.println("Weekend: "+weekendArrivals);
+    }
+    
+    public static int getweekDayPassArrivals() {
+    	return weekDayPassArrivals;
+    }
+    
+    public static void setweekDayPassArrivals(int WDPA) {
+    	weekDayPassArrivals = WDPA;
+    	System.out.println("Werkdag (met pas): "+weekDayPassArrivals);
+    }
+    
+    public static int getweekendPassArrivals() {
+    	return weekendPassArrivals;
+    }
+    
+    public static void setweekendPassArrivals(int WEPA) {
+    	weekendPassArrivals = WEPA;
+    	System.out.println("Weekend (met pas): "+weekendPassArrivals);
+    }
+    
+    public static int getNormalCarQueue() {
+    	return entranceCarQueue.carsInQueue();
+    }
+    
+    public static int getPassCarQueue() {
+    	return entrancePassQueue.carsInQueue();
+    }
+    
+    public static int getResCarQueue() {
+    	return entranceResQueue.carsInQueue();
+    }
+    
+    public static int getTickPause() {
+    	return tickPause;
+    }
+    
+    public static void setTickPause(int TP) {
+    	tickPause = TP;
+    }
+    
+    public static int getMaxEntranceCarQueue() {
+    	return maxEntranceCarQueue;
+    }
+    
+    public static void setMaxEntranceCarQueue(int MECQ) {
+    	maxEntranceCarQueue = MECQ;
+    }
+    
+    public static int getDoorgeredenAutos() {
+    	return doorgeredenAutos;
+    }
 }

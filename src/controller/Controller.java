@@ -8,6 +8,7 @@ import java.awt.event.*;
 public class Controller  extends AbstractController  implements ActionListener, Runnable {
 	
 	private JButton plus;
+	private JButton plus100;
 	private JButton start;
 	private JButton stop;
 	private Simulator simulator;
@@ -22,6 +23,8 @@ public class Controller  extends AbstractController  implements ActionListener, 
 		
 		plus = new JButton("Plus 1");
 		plus.addActionListener(this);
+		plus100 = new JButton("Plus 100");
+		plus100.addActionListener(this);
 		start = new JButton("Start");
 		start.addActionListener(this);
 		stop = new JButton("Stop");
@@ -32,6 +35,7 @@ public class Controller  extends AbstractController  implements ActionListener, 
 		
 		this.setLayout(new FlowLayout());
 		add(plus);
+		add(plus100);
 		add(start);
 		add(stop);
 		add(auto);
@@ -43,6 +47,12 @@ public class Controller  extends AbstractController  implements ActionListener, 
 	public void actionPerformed(ActionEvent e) {
 			if(e.getSource()==plus) {
 				simulator.tick();
+			}
+			
+			if(e.getSource()==plus100) {
+				for(int i=0;i<100;i++){
+					simulator.tick();
+				}
 			}
 				
 			if(e.getSource()==start) {
