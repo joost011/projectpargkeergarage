@@ -6,7 +6,7 @@ import controller.*;
 import javax.swing.*;
 import logic.*;
 
-public class SimulatorView extends JFrame {
+public class SimulatorView extends JPanel {
     private CarParkView carParkView;
     private int numberOfFloors;
     private int numberOfRows;
@@ -49,7 +49,6 @@ public class SimulatorView extends JFrame {
         screen.setVisible(true);
 		screen.setResizable(false);
 		screen.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
 		
 
         updateView();
