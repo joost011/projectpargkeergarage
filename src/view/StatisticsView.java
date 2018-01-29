@@ -11,7 +11,13 @@ public class StatisticsView extends JPanel {
 	private int uren = 0;
 	private String[] dagen;
 	private int x = 0;
+	private JLabel verwachteinkomsten;
+	private JLabel inkomsten;
+	private int ticketprijs = 6;
+	private int reservedticketprijs = 10;
+	private int passticketprijs = 30;
 
+	
 	public StatisticsView() {
 		
 		dagen = new String[7];
@@ -29,6 +35,11 @@ public class StatisticsView extends JPanel {
 		viewpanel.add(tijd);
 		dag = new JLabel("Dag: Maandag");
 		viewpanel.add(dag);
+		
+		verwachteinkomsten = new JLabel("verwachte prijs: €1000");
+		viewpanel.add(verwachteinkomsten);
+		inkomsten = new JLabel("inkomsten: 250");
+		viewpanel.add(inkomsten);
 		add(viewpanel);
 		setVisible(true);
 	}

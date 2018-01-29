@@ -17,6 +17,8 @@ public final class Simulator {
     private CarQueue exitCarQueue;
     private SimulatorView simulatorView;
     public boolean run;
+    
+    
 
     private int day = 0;
     private int hour = 0;
@@ -122,7 +124,8 @@ public final class Simulator {
     }
 
     private void carsEntering(CarQueue queue){
-        int i=0;
+        
+    	int i=0;
         // Remove car from the front of the queue and assign to a parking space.
     	while (queue.carsInQueue()>0 && 
     			simulatorView.getNumberOfOpenSpots()>0 && 
@@ -137,6 +140,7 @@ public final class Simulator {
             simulatorView.setCarAt(freeLocation, car);
             }
             i++;
+            
         }
     }
     
@@ -157,13 +161,17 @@ public final class Simulator {
 
     private void carsPaying(){
         // Let cars pay.
+    	
     	int i=0;
+    	
     	while (paymentCarQueue.carsInQueue()>0 && i < paymentSpeed){
             Car car = paymentCarQueue.removeCar();
             // TODO Handle payment.
             carLeavesSpot(car);
             i++;
+           
     	}
+    	
     }
     
     private void carsLeaving(){
@@ -206,21 +214,31 @@ public final class Simulator {
         // Add the cars to the back of the queue.
     	switch(type) {
     	case AD_HOC: 
-            for (int i = 0; i < numberOfCars; i++) {
+            for (int cars = 0; cars < numberOfCars; cars++) {
             	entranceCarQueue.addCar(new AdHocCar());
+            	System.out.println(cars);
             }
             break;
     	case PASS:
             for (int i = 0; i < numberOfCars; i++) {
             	entrancePassQueue.addCar(new ParkingPassCar());
+            	
             }
             break;	
     	case RES:
     		for (int i = 0; i < numberOfCars; i++) {
             	entrancePassQueue.addCar(new ReservationCar());
+            	
     		}
     	}
+    	
     }
+    
+   public int getcar() {
+	   
+	   
+	   return 1;
+   }
     
     private void carLeavesSpot(Car car){
     	simulatorView.removeCarAt(car.getLocation());
