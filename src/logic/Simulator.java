@@ -21,6 +21,11 @@ public final class Simulator {
     private int day = 0;
     private int hour = 0;
     private int minute = 0;
+    
+    private int currentResCar = 0;
+    private int currentAboCar = 0;
+    private int currentRandCar = 0;
+    private int currentEmpty = 0;
 
     private int tickPause = 100;
 
@@ -57,7 +62,7 @@ public final class Simulator {
     	do {
         //for (int i = 0; i < 10000; i++) {
             tick();
-          //  updateViews();
+            updateViews();
             //}
     	}
     	while(this.run == true);
@@ -109,7 +114,8 @@ public final class Simulator {
     private void updateViews(){
     	simulatorView.tick();
         // Update the car park view.
-        simulatorView.updateView();	
+        simulatorView.updateView();
+        simulatorView.updatePieChart(currentResCar,currentAboCar,currentRandCar,currentEmpty);
     }
     
     private void carsArriving(){
@@ -131,19 +137,59 @@ public final class Simulator {
             if(car instanceof ReservationCar) {
             	Location freeResLocation = simulatorView.getReservationLocation();
             	simulatorView.setCarAt(freeResLocation, car);
+            	currentResCar++;	// Add reserved car location
+            	currentEmpty--; 	// remove one empty spot
+            }
+            else if(car instanceof ParkingPassCar) {
+            	Location freeResLocation = simulatorView.getFirstFreeLocation();
+            	simulatorView.setCarAt(freeResLocation, car);
+            	currentAboCar++;	// Add abonoment car location
+            	currentEmpty--; 	// remove one empty spot
             }
             else {
             Location freeLocation = simulatorView.getFirstFreeLocation();
             simulatorView.setCarAt(freeLocation, car);
+            currentRandCar++; 	// Add random car location
+            currentEmpty--; 	// remove one empty spot
             }
             i++;
         }
+    }
+    
+   
+    
+    public int getRes(){
+    	return currentResCar;
+    }
+    
+    public int getAbo(){
+    	return currentAboCar;
+    }
+    
+    public int getRand(){
+    	return currentRandCar;
+    }
+    
+    public int getEmpty(){
+    	return currentEmpty;
     }
     
     private void carsReadyToLeave(){
         // Add leaving cars to the payment queue.
         Car car = simulatorView.getFirstLeavingCar();
         while (car!=null) {
+        	if(car instanceof ReservationCar) {
+       		 currentResCar--;
+       		 currentEmpty++;
+            }
+        	if(car instanceof ParkingPassCar) {
+       		 currentAboCar--;
+       		 currentEmpty++;
+            }
+        	if(car instanceof AdHocCar) {
+       		 currentRandCar--;
+       		 currentEmpty++;
+            }
         	if (car.getHasToPay()){
 	            car.setIsPaying(true);
 	            paymentCarQueue.addCar(car);
