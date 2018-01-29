@@ -1,5 +1,6 @@
 package logic;
 
+import java.awt.Color;
 import java.util.Random;
 import controller.*;
 import view.*;
@@ -45,6 +46,7 @@ public final class Simulator {
         paymentCarQueue = new CarQueue();
         exitCarQueue = new CarQueue();
         simulatorView = new SimulatorView(3, 6, 30, this);
+        
     }
     
     public void start() {
