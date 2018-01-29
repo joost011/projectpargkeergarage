@@ -17,7 +17,7 @@ public class SimulatorView extends JFrame {
     private Controller controller;
     private StatisticsView statics;
     private JTabbedPane tabs;
-    private PieChartView piechart;
+    private PieChartView2 piechart;
 
 
     public SimulatorView(int numberOfFloors, int numberOfRows, int numberOfPlaces, Simulator simulator) {
@@ -30,11 +30,13 @@ public class SimulatorView extends JFrame {
         controller = new Controller(simulator);
         
         carParkView = new CarParkView();
-        piechart = new PieChartView("Pie Chart Test", "OS comparison");
-       
+        //piechart = new PieChartView("Pie Chart Test", "OS comparison",0,0,0,numberOfOpenSpots);
+        piechart = new PieChartView2();
+	    
+        
         tabs = new JTabbedPane();
 		tabs.setPreferredSize(new Dimension(300, 10));
-		tabs.addTab("PieChart", piechart.getChart());
+		tabs.addTab("PieChart", piechart);
         
         screen=new JFrame("Project Parkeergarage");
         Container contentPane = screen.getContentPane();
@@ -43,7 +45,7 @@ public class SimulatorView extends JFrame {
         screen.getContentPane().add(controller, BorderLayout.SOUTH);
         screen.getContentPane().add(tabs, BorderLayout.EAST);
         screen.pack();
-        screen.setSize(1300, 500);
+        screen.setSize(1200, 500);
         screen.setVisible(true);
 		screen.setResizable(false);
 		screen.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -77,6 +79,10 @@ public class SimulatorView extends JFrame {
 
     public int getNumberOfOpenSpots(){
     	return numberOfOpenSpots;
+    }
+    
+    public void updatePieChart(int res, int abo, int rand, int empty){
+    	piechart.repaint( res,  abo,  rand,  empty);
     }
     
     public Car getCarAt(Location location) {
@@ -230,6 +236,7 @@ public class SimulatorView extends JFrame {
             for(int floor = 0; floor < getNumberOfFloors(); floor++) {
                 for(int row = 0; row < getNumberOfRows(); row++) {
                     for(int place = 0; place < getNumberOfPlaces(); place++) {
+                    	
                         Location location = new Location(floor, row, place);
                         Car car = getCarAt(location);
                         Color color = car == null ? Color.white : car.getColor();
@@ -239,6 +246,8 @@ public class SimulatorView extends JFrame {
             }
             repaint();
         }
+        
+        
     
         /**
          * Paint a place on this car park view in a given color.
