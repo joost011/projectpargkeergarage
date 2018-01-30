@@ -28,12 +28,12 @@ public final class Simulator {
     private int currentRandCar = 0;
     private int currentEmpty = 0;
 
-    private static int tickPause = 100;
+    private static int tickPause = 0;
 
-    static int weekDayArrivals= 100; // average number of arriving cars per hour
-    static int weekendArrivals = 200; // average number of arriving cars per hour
-    static int weekDayPassArrivals= 50; // average number of arriving cars per hour
-    static int weekendPassArrivals = 5; // average number of arriving cars per hour
+    static int weekDayArrivals= 200; // average number of arriving cars per hour
+    static int weekendArrivals = 100; // average number of arriving cars per hour
+    static int weekDayPassArrivals= 100; // average number of arriving cars per hour
+    static int weekendPassArrivals = 50; // average number of arriving cars per hour
 
     int enterSpeed = 3; // number of cars that can enter per minute
     int paymentSpeed = 7; // number of cars that can pay per minute
@@ -149,13 +149,13 @@ public final class Simulator {
     			i<enterSpeed) {
             Car car = queue.removeCar();
             if(car instanceof ReservationCar) {
-            	Location freeResLocation = simulatorView.getReservationLocation();
+            	Location freeResLocation = simulatorView.getFirstFreeLocation();
             	simulatorView.setCarAt(freeResLocation, car);
             	currentResCar++;	// Add reserved car location
             	currentEmpty--; 	// remove one empty spot
             }
             else if(car instanceof ParkingPassCar) {
-            	Location freeResLocation = simulatorView.getFirstFreeLocation();
+            	Location freeResLocation = simulatorView.getReservationLocation();
             	simulatorView.setCarAt(freeResLocation, car);
             	currentAboCar++;	// Add abonoment car location
             	currentEmpty--; 	// remove one empty spot
@@ -245,15 +245,23 @@ public final class Simulator {
 
         // Calculate the number of cars that arrive this minute.
         int x;
-        if(simulatorView.statics().uur()==17 ||
-           simulatorView.statics().uur()==18 ||	
-           simulatorView.statics().uur()==19 ||
-           simulatorView.statics().uur()==20 ||
-           simulatorView.statics().uur()==21) {
+        if((simulatorView.statics().uur()>=14 &&
+           simulatorView.statics().uur()<=16) ||
+           (simulatorView.statics().uur()>=18 &&	
+           simulatorView.statics().uur()<=22)) {
+        	x = 200;
+        }
+        else if (simulatorView.statics().uur()>=0 &&
+        		 simulatorView.statics().uur()<=7){
         	x = 300;
         }
+        else if (simulatorView.statics().uur()>=8 &&
+        		 simulatorView.statics().uur()<=12 
+        		 ) {
+        	x = 250;
+        }
         else {
-        	x = 60;
+        	x = 280;
         }
          
         double standardDeviation = averageNumberOfCarsPerHour * 0.3;

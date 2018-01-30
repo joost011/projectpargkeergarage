@@ -117,21 +117,24 @@ public class StatisticsView extends JPanel implements ActionListener{
 	
 	public void plusuur() {
 		if(minuten > 59) {
-			minuten = -1;
+			minuten = 0;
 			uren++;
 		}
-		if(uren > 22 ) {
+		if(uren > 23 ) {
 			uren = 0;
 		}
 		minuten++;
-		if (minuten < 10) {
-		tijd.setText("Tijdstip: " + String.valueOf(uren) + ":0" + (minuten));
+		if(minuten <10 && uren<10) {
+			tijd.setText("Tijdstip: 0" + String.valueOf(uren)+ ":0" + String.valueOf(minuten));
+		}else if(uren>9 && minuten<10) {
+			tijd.setText("Tijdstip: " + String.valueOf(uren)+ ":0" + String.valueOf(minuten));
+		}else if(uren<10 && minuten>9) {
+			tijd.setText("Tijdstip: 0" + String.valueOf(uren)+ ":" + String.valueOf(minuten));
 		}
-		else {
-			{
-				tijd.setText("Tijdstip: " + String.valueOf(uren) + ":" + (minuten));
-				}
-		}
+
+		else
+		tijd.setText("Tijdstip: " + String.valueOf(uren)+ ":" + String.valueOf(minuten));
+	
 		gewonewachtrij.setText("Gewone wachtrij: "+String.valueOf(Simulator.getNormalCarQueue()));
 		paswachtrij.setText("Pas wachtrij: "+String.valueOf(Simulator.getPassCarQueue()));
 		reswachtrij.setText("Reservering wachtrij: "+String.valueOf(Simulator.getResCarQueue()));
@@ -140,7 +143,7 @@ public class StatisticsView extends JPanel implements ActionListener{
 	
 	public void plusdag() {
 		
-		if(uren==23) {
+		if(uren==23 && minuten == 59) {
 			x++;
 			if(x==7) {
 				x = 0;
