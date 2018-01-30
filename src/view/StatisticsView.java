@@ -11,6 +11,7 @@ public class StatisticsView extends JPanel {
 	private int uren = 0;
 	private String[] dagen;
 	private int x = 0;
+	private int minute =0;
 	private JLabel verwachteinkomsten;
 	private JLabel inkomsten;
 	private int ticketprijs = 6;
@@ -31,7 +32,7 @@ public class StatisticsView extends JPanel {
 		
 		viewpanel = new JPanel();
 		viewpanel.setLayout(new GridLayout(5,5,30,10));
-		tijd = new JLabel("Tijdstip: 0:00");
+		tijd = new JLabel("Tijdstip: 00:00");
 		viewpanel.add(tijd);
 		dag = new JLabel("Dag: Maandag");
 		viewpanel.add(dag);
@@ -45,16 +46,33 @@ public class StatisticsView extends JPanel {
 	}
 	
 	public void plusuur() {
-		if(uren > 22 ) {
-			uren = -1;
+		if (minute > 59) {
+			minute = -1;
+			uren++;
 		}
-		uren++;
-		tijd.setText("Tijdstip: " + String.valueOf(uren) + ":00");
+		if(uren > 23 ) {
+			uren = 0;
+			
+		}
+		
+		minute++;
+		if(minute <10 && uren<10) {
+			tijd.setText("Tijdstip: 0" + String.valueOf(uren)+ ":0" + String.valueOf(minute));
+		}else if(uren>9 && minute<10) {
+			tijd.setText("Tijdstip: " + String.valueOf(uren)+ ":0" + String.valueOf(minute));
+		}else if(uren<10 && minute>9) {
+			tijd.setText("Tijdstip: 0" + String.valueOf(uren)+ ":" + String.valueOf(minute));
+		}
+		else
+		tijd.setText("Tijdstip: " + String.valueOf(uren)+ ":" + String.valueOf(minute));
+	
+		
+		
 	}
 	
 	public void plusdag() {
 		
-		if(uren==23) {
+		if(uren==23 && minute == 59) {
 			x++;
 			if(x==7) {
 				x = 0;

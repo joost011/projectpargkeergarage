@@ -14,6 +14,7 @@ public class PieChartView2 extends JPanel {
 	
 	public PieChartView2() {
 		this.setSize(250,250);
+		this.setOpaque(false);
 		this.setVisible(true);
 		
 	}
