@@ -1,5 +1,6 @@
 package logic;
 
+import java.awt.Color;
 import java.util.Random;
 import controller.*;
 import view.*;
@@ -10,9 +11,9 @@ public final class Simulator {
 	private static final String PASS = "2";
 	private static final String RES = "3";
 		
-	private CarQueue entranceCarQueue;
-	private CarQueue entranceResQueue;
-    private CarQueue entrancePassQueue;
+	private static CarQueue entranceCarQueue;
+	private static CarQueue entranceResQueue;
+    private static CarQueue entrancePassQueue;
     private CarQueue paymentCarQueue;
     private CarQueue exitCarQueue;
     private SimulatorView simulatorView;
@@ -29,16 +30,34 @@ public final class Simulator {
     private int currentRandCar = 0;
     private int currentEmpty = 0;
 
+<<<<<<< HEAD
     private int tickPause = 0;
 
     int weekDayArrivals= 200; // average number of arriving cars per hour
     int weekendArrivals = 100; // average number of arriving cars per hour
     int weekDayPassArrivals= 100; // average number of arriving cars per hour
     int weekendPassArrivals = 50; // average number of arriving cars per hour
+=======
+    private static int tickPause = 100;
+
+    static int weekDayArrivals= 100; // average number of arriving cars per hour
+    static int weekendArrivals = 200; // average number of arriving cars per hour
+    static int weekDayPassArrivals= 50; // average number of arriving cars per hour
+    static int weekendPassArrivals = 5; // average number of arriving cars per hour
+>>>>>>> 4d614b03aab05486557e6b5297f1865a8f4e23aa
 
     int enterSpeed = 3; // number of cars that can enter per minute
     int paymentSpeed = 7; // number of cars that can pay per minute
     int exitSpeed = 5; // number of cars that can leave per minute
+    
+    int regularPay = 7; 	// regular price normal cars have to pay
+    int monthlyAboPay = 0; 	// price per month cardholders have to pay
+    int resPay = 0; 		// price to place a reservation
+    int revenue = 0;		// total monies earned
+    
+    static int maxEntranceCarQueue = 100; // maximum cars in the normal car queue
+    
+    static int doorgeredenAutos= 0;
 
     public Simulator() {
         entranceCarQueue = new CarQueue();
@@ -47,6 +66,7 @@ public final class Simulator {
         paymentCarQueue = new CarQueue();
         exitCarQueue = new CarQueue();
         simulatorView = new SimulatorView(3, 6, 30, this);
+        currentEmpty = simulatorView.getNumberOfOpenSpots();
     }
     
     public void start() {
@@ -117,7 +137,7 @@ public final class Simulator {
     	simulatorView.tick();
         // Update the car park view.
         simulatorView.updateView();
-        simulatorView.updatePieChart(currentResCar,currentAboCar,currentRandCar,currentEmpty);
+        simulatorView.updatePieChart(currentResCar,currentAboCar,currentRandCar,currentEmpty, revenue);
     }
     
     private void carsArriving(){
@@ -212,7 +232,7 @@ public final class Simulator {
     	
     	while (paymentCarQueue.carsInQueue()>0 && i < paymentSpeed){
             Car car = paymentCarQueue.removeCar();
-            // TODO Handle payment.
+            revenue+=regularPay;
             carLeavesSpot(car);
             i++;
            
@@ -267,11 +287,24 @@ public final class Simulator {
     
     private void addArrivingCars(int numberOfCars, String type){
         // Add the cars to the back of the queue.
+    	Random rand = new Random();
+    	
     	switch(type) {
     	case AD_HOC: 
+<<<<<<< HEAD
             for (int cars = 0; cars < numberOfCars; cars++) {
             	entranceCarQueue.addCar(new AdHocCar());
            
+=======
+            for (int i = 0; i < numberOfCars; i++) {
+            	int  n = rand.nextInt(maxEntranceCarQueue +1); // n = random number between 0 and the max number of normal cars in queue
+            	if (n > entranceCarQueue.carsInQueue() || entranceCarQueue.carsInQueue() == 0) {
+            		entranceCarQueue.addCar(new AdHocCar());
+            	}
+            	else {
+            		doorgeredenAutos++;
+            	}
+>>>>>>> 4d614b03aab05486557e6b5297f1865a8f4e23aa
             }
             break;
     	case PASS:
@@ -299,5 +332,72 @@ public final class Simulator {
     	simulatorView.removeCarAt(car.getLocation());
         exitCarQueue.addCar(car);
     }
-
+    
+    public static int getWeekDayArrivals() {
+    	return weekDayArrivals;
+    }
+    
+    public static void setWeekDayArrivals(int WDA) {
+    	weekDayArrivals = WDA;
+    	System.out.println("Werkdag: "+weekDayArrivals);
+    }
+    
+    public static int getWeekendArrivals() {
+    	return weekendArrivals;
+    }
+    
+    public static void setWeekendArrivals(int WEA) {
+    	weekendArrivals = WEA;
+    	System.out.println("Weekend: "+weekendArrivals);
+    }
+    
+    public static int getweekDayPassArrivals() {
+    	return weekDayPassArrivals;
+    }
+    
+    public static void setweekDayPassArrivals(int WDPA) {
+    	weekDayPassArrivals = WDPA;
+    	System.out.println("Werkdag (met pas): "+weekDayPassArrivals);
+    }
+    
+    public static int getweekendPassArrivals() {
+    	return weekendPassArrivals;
+    }
+    
+    public static void setweekendPassArrivals(int WEPA) {
+    	weekendPassArrivals = WEPA;
+    	System.out.println("Weekend (met pas): "+weekendPassArrivals);
+    }
+    
+    public static int getNormalCarQueue() {
+    	return entranceCarQueue.carsInQueue();
+    }
+    
+    public static int getPassCarQueue() {
+    	return entrancePassQueue.carsInQueue();
+    }
+    
+    public static int getResCarQueue() {
+    	return entranceResQueue.carsInQueue();
+    }
+    
+    public static int getTickPause() {
+    	return tickPause;
+    }
+    
+    public static void setTickPause(int TP) {
+    	tickPause = TP;
+    }
+    
+    public static int getMaxEntranceCarQueue() {
+    	return maxEntranceCarQueue;
+    }
+    
+    public static void setMaxEntranceCarQueue(int MECQ) {
+    	maxEntranceCarQueue = MECQ;
+    }
+    
+    public static int getDoorgeredenAutos() {
+    	return doorgeredenAutos;
+    }
 }
