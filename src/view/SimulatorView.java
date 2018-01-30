@@ -30,9 +30,7 @@ public class SimulatorView extends JPanel {
         controller = new Controller(simulator);
         
         carParkView = new CarParkView();
-        //piechart = new PieChartView("Pie Chart Test", "OS comparison",0,0,0,numberOfOpenSpots);
         piechart = new PieChartView2();
-	    
         
         tabs = new JTabbedPane();
 		tabs.setPreferredSize(new Dimension(300, 10));
@@ -54,6 +52,7 @@ public class SimulatorView extends JPanel {
         updateView();
         
     }
+    
     
     public StatisticsView statics() {
     	return statics;
@@ -79,8 +78,8 @@ public class SimulatorView extends JPanel {
     	return numberOfOpenSpots;
     }
     
-    public void updatePieChart(int res, int abo, int rand, int empty){
-    	piechart.repaint( res,  abo,  rand,  empty);
+    public void updatePieChart(int res, int abo, int rand, int empty, int revenue){
+    	piechart.repaint( res,  abo,  rand,  empty, revenue);
     }
     
     public Car getCarAt(Location location) {
