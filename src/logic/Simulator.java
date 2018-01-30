@@ -39,6 +39,11 @@ public final class Simulator {
     int paymentSpeed = 7; // number of cars that can pay per minute
     int exitSpeed = 5; // number of cars that can leave per minute
     
+    int regularPay = 7; 	// regular price normal cars have to pay
+    int monthlyAboPay = 0; 	// price per month cardholders have to pay
+    int resPay = 0; 		// price to place a reservation
+    int revenue = 0;		// total monies earned
+    
     static int maxEntranceCarQueue = 100; // maximum cars in the normal car queue
     
     static int doorgeredenAutos= 0;
@@ -50,7 +55,7 @@ public final class Simulator {
         paymentCarQueue = new CarQueue();
         exitCarQueue = new CarQueue();
         simulatorView = new SimulatorView(3, 6, 30, this);
-        
+        currentEmpty = simulatorView.getNumberOfOpenSpots();
     }
     
     public void start() {
@@ -121,7 +126,7 @@ public final class Simulator {
     	simulatorView.tick();
         // Update the car park view.
         simulatorView.updateView();
-        simulatorView.updatePieChart(currentResCar,currentAboCar,currentRandCar,currentEmpty);
+        simulatorView.updatePieChart(currentResCar,currentAboCar,currentRandCar,currentEmpty, revenue);
     }
     
     private void carsArriving(){
@@ -212,7 +217,7 @@ public final class Simulator {
     	int i=0;
     	while (paymentCarQueue.carsInQueue()>0 && i < paymentSpeed){
             Car car = paymentCarQueue.removeCar();
-            // TODO Handle payment.
+            revenue+=regularPay;
             carLeavesSpot(car);
             i++;
     	}
