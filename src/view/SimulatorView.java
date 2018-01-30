@@ -2,7 +2,10 @@ package view;
 
 
 import java.awt.*;
+
 import controller.*;
+
+
 import javax.swing.*;
 import logic.*;
 
@@ -18,6 +21,7 @@ public class SimulatorView extends JPanel {
     private StatisticsView statics;
     private JTabbedPane tabs;
     private PieChartView2 piechart;
+    private BarView barchart;
 
 
     public SimulatorView(int numberOfFloors, int numberOfRows, int numberOfPlaces, Simulator simulator) {
@@ -32,11 +36,13 @@ public class SimulatorView extends JPanel {
         carParkView = new CarParkView();
         //piechart = new PieChartView("Pie Chart Test", "OS comparison",0,0,0,numberOfOpenSpots);
         piechart = new PieChartView2();
+        barchart = new BarView();
 	    
         
         tabs = new JTabbedPane();
 		tabs.setPreferredSize(new Dimension(300, 10));
 		tabs.addTab("PieChart", piechart);
+		tabs.addTab("BarView", barchart);
         
         screen=new JFrame("Project Parkeergarage");
         Container contentPane = screen.getContentPane();
@@ -81,6 +87,10 @@ public class SimulatorView extends JPanel {
     
     public void updatePieChart(int res, int abo, int rand, int empty){
     	piechart.repaint( res,  abo,  rand,  empty);
+    }
+    
+    public void updateBarChart(int res, int abo, int rand, int empty) {
+    	barchart.repaint( res,  abo,  rand,  empty);
     }
     
     public Car getCarAt(Location location) {

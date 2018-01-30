@@ -17,7 +17,7 @@ public class PieChartView2 extends JPanel {
 	private JLabel label1;
 
 	public PieChartView2() {
-
+		this.setOpaque(false);
 		thePanel = new JPanel();
 		thePanel.setLayout(new GridLayout(5,5,30,10));
 	
@@ -33,8 +33,7 @@ public class PieChartView2 extends JPanel {
 	}
 
 	public void paint(Graphics g) {
-		g.setColor(Color.BLACK);
-		g.drawOval(45, 80,200,200);
+		
 		g.setColor(Color.WHITE);
 		g.fillOval(45, 80, 200, 200);
 
@@ -46,6 +45,9 @@ public class PieChartView2 extends JPanel {
 		g.fillArc(45, 80, 200, 200, 90, -(rand+abo));
 		g.setColor(Color.RED); // rand
 		g.fillArc(45, 80, 200, 200, 90, -rand);
+		
+		g.setColor(Color.BLACK);
+		g.drawOval(45, 80,200,200);
 	}
 
 	public void repaint(int res, int abo, int rand, int empty){

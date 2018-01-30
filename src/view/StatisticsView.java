@@ -26,6 +26,7 @@ public class StatisticsView extends JPanel implements ActionListener{
 	private JButton update;
 	private JPanel viewpanel;
 	private int uren = 0;
+	private int minuten = 0;
 	private String[] dagen;
 	private int x = 0;
 	private JTextField snelheid;
@@ -112,12 +113,25 @@ public class StatisticsView extends JPanel implements ActionListener{
 		setVisible(true);
 	}
 	
+	
+	
 	public void plusuur() {
-		if(uren > 22 ) {
-			uren = -1;
+		if(minuten > 59) {
+			minuten = -1;
+			uren++;
 		}
-		uren++;
-		tijd.setText("Tijdstip: " + String.valueOf(uren) + ":00");
+		if(uren > 22 ) {
+			uren = 0;
+		}
+		minuten++;
+		if (minuten < 10) {
+		tijd.setText("Tijdstip: " + String.valueOf(uren) + ":0" + (minuten));
+		}
+		else {
+			{
+				tijd.setText("Tijdstip: " + String.valueOf(uren) + ":" + (minuten));
+				}
+		}
 		gewonewachtrij.setText("Gewone wachtrij: "+String.valueOf(Simulator.getNormalCarQueue()));
 		paswachtrij.setText("Pas wachtrij: "+String.valueOf(Simulator.getPassCarQueue()));
 		reswachtrij.setText("Reservering wachtrij: "+String.valueOf(Simulator.getResCarQueue()));
