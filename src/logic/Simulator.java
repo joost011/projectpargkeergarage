@@ -126,7 +126,10 @@ public final class Simulator {
     	simulatorView.tick();
         // Update the car park view.
         simulatorView.updateView();
+        
+        simulatorView.updateBarChart(currentResCar,currentAboCar,currentRandCar,currentEmpty);
         simulatorView.updatePieChart(currentResCar,currentAboCar,currentRandCar,currentEmpty, revenue);
+
     }
     
     private void carsArriving(){

@@ -50,9 +50,15 @@ public class Controller  extends AbstractController  implements ActionListener, 
 			}
 			
 			if(e.getSource()==plus100) {
-				for(int i=0;i<100;i++){
-					simulator.tick();
+				Thread thread = new Thread(new Runnable() {
+					@Override
+					public void run() {
+					for(int i=0;i<100;i++){
+						simulator.tick();
+					}
 				}
+				});
+				thread.start();
 			}
 				
 			if(e.getSource()==start) {
