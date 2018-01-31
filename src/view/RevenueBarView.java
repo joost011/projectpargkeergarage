@@ -99,8 +99,8 @@ public class RevenueBarView extends JPanel {
 		}
 		
 		scale = max/500;
-		if(scale == 0) {
-			scale = 1;
+		if(scale < 20) {
+			scale = 20;
 		}
 				
 		this.repaint();
