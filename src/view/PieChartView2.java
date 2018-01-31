@@ -2,6 +2,7 @@ package view;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.text.DecimalFormat;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -13,7 +14,7 @@ public class PieChartView2 extends JPanel {
 	private int abo; // abonoment
 	private int rand; //random auto's
 	private int empty; // empty spots
-	private int revenue;
+	private Double revenue;
 	private JPanel thePanel;
 	private JLabel Rand;
 	private JLabel Res;
@@ -22,6 +23,8 @@ public class PieChartView2 extends JPanel {
 	private JLabel space;
 	private JLabel Revenue;
 	private Graphics g;
+	
+	private static DecimalFormat df2 = new DecimalFormat(".##");
 	
 	public PieChartView2() {
 		this.setOpaque(false);
@@ -43,7 +46,7 @@ public class PieChartView2 extends JPanel {
 		space = new JLabel("");
 		thePanel.add(space);
 		
-		Revenue = new JLabel("Total revenue: " + revenue);
+		Revenue = new JLabel("Total revenue: €" + revenue);
 		thePanel.add(Revenue);
 		
 		add(thePanel);
@@ -76,7 +79,7 @@ public class PieChartView2 extends JPanel {
 
 	}
 
-	public void repaint(int res, int abo, int rand, int empty, int revenue){
+	public void repaint(int res, int abo, int rand, int empty, Double revenue){
 		this.res = res;
 		Res.setText("Reservatie auto's:  " + res);
 		this.abo = abo;
@@ -86,7 +89,7 @@ public class PieChartView2 extends JPanel {
 		this.empty = empty;
 		Empty.setText("Lege plekken:   " + empty);
 		this.revenue = revenue;
-		Revenue.setText("Total revenue: " + revenue);
+		Revenue.setText("Total revenue: €" + df2.format(revenue));
 		this.repaint();
 	}
 

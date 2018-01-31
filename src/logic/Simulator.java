@@ -39,10 +39,10 @@ public final class Simulator {
 	int paymentSpeed = 7; 					// number of cars that can pay per minute
 	int exitSpeed = 5; 						// number of cars that can leave per minute
 
-	int regularPay = 7; 					// regular price normal cars have to pay
+	static Double regularPricePerHour = 4.5; 	// regular price normal cars have to pay
 	int monthlyAboPay = 0; 					// price per month cardholders have to pay
 	int resPay = 0; 						// price to place a reservation
-	int revenue = 0;						// total monies earned
+	Double revenue = 0.0;						// total monies earned
 
 	static int maxEntranceCarQueue = 100; 	// maximum cars in the normal car queue
 	static int maxSpecialCarQueue = 100; 	// maximum cars in the normal car queue
@@ -289,7 +289,7 @@ public final class Simulator {
 		int i=0;
 		while (paymentCarQueue.carsInQueue()>0 && i < paymentSpeed){
 			Car car = paymentCarQueue.removeCar();
-			revenue+=regularPay;										// voegt het betaalbedrag aan de totale opwinsten op
+			revenue+=car.getHasToPayAmount();							// voegt het betaalbedrag aan de totale opwinsten op
 			carLeavesSpot(car);											// Auto verlaat de plek
 			i++;
 		}
@@ -466,6 +466,14 @@ public final class Simulator {
 
 	public static int getDoorgeredenSpecialeAutos() {
 		return doorgeredenSpecialeAutos;
+	}
+	
+	public static void setRegularPricePerHour(Double RPPH) {
+		regularPricePerHour = RPPH;
+	}
+
+	public static Double getRegularPricePerHour() {
+		return regularPricePerHour;
 	}
 
 }

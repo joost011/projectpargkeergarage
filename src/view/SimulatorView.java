@@ -92,7 +92,7 @@ public class SimulatorView extends JPanel {
     	return numberOfOpenSpots;
     }
     
-    public void updatePieChart(int res, int abo, int rand, int empty, int revenue){
+    public void updatePieChart(int res, int abo, int rand, int empty, Double revenue){
     	piechart.repaint( res,  abo,  rand,  empty, revenue);
     }
     
