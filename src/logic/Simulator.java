@@ -30,10 +30,10 @@ public final class Simulator {
 
     private static int tickPause = 0;
 
-    static int weekDayArrivals= 200; // average number of arriving cars per hour
-    static int weekendArrivals = 100; // average number of arriving cars per hour
-    static int weekDayPassArrivals= 100; // average number of arriving cars per hour
-    static int weekendPassArrivals = 50; // average number of arriving cars per hour
+    static int weekDayArrivals=150; // average number of arriving cars per hour
+    static int weekendArrivals = 170; // average number of arriving cars per hour
+    static int weekDayPassArrivals= 110; // average number of arriving cars per hour
+    static int weekendPassArrivals = 100; // average number of arriving cars per hour
 
     int enterSpeed = 3; // number of cars that can enter per minute
     int paymentSpeed = 7; // number of cars that can pay per minute
@@ -255,7 +255,7 @@ public final class Simulator {
         }
         else if (simulatorView.statics().uur()>=0 &&
         		 simulatorView.statics().uur()<=7){
-        	x = 300;
+        	x = 350;
         }
         else if (simulatorView.statics().uur()>=8 &&
         		 simulatorView.statics().uur()<=12 
