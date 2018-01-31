@@ -28,16 +28,16 @@ public class PieChartView2 extends JPanel {
 		thePanel = new JPanel();
 		thePanel.setLayout(new GridLayout(45,80));
 	
-		Rand = new JLabel("Random auto's:  " + rand);
+		Rand = new JLabel("Normale auto's:    " + rand);
 		thePanel.add(Rand);
 		
-		Res = new JLabel("Reserved autos:  " + res);
+		Res = new JLabel("Reservatie auto's:  " + res);
 		thePanel.add(Res);
 		
-		Abo = new JLabel("Abonee autos:    " + abo);
+		Abo = new JLabel("Abonee auto's:      " + abo);
 		thePanel.add(Abo);
 		
-		Empty = new JLabel("Lege plekken:     " + empty);
+		Empty = new JLabel("Lege plekken:       " + empty);
 		thePanel.add(Empty);
 		
 		space = new JLabel("");
@@ -62,7 +62,7 @@ public class PieChartView2 extends JPanel {
 		g.setColor(Color.WHITE);// empty
 		g.fillArc(45, 140, 200, 200, 90, -(rand+abo+res+empty));
 		g.setColor(Color.GREEN);// res
-		g.fillArc(45, 140, 200, 200, 90, -(rand+abo+res));
+		g.fillArc(45, 140, 200, 200, 90, -(rand+abo+(res/2)));
 		g.setColor(Color.BLUE); // abo
 		g.fillArc(45, 140, 200, 200, 90, -(rand+abo));
 		g.setColor(Color.RED); // rand
@@ -78,13 +78,13 @@ public class PieChartView2 extends JPanel {
 
 	public void repaint(int res, int abo, int rand, int empty, int revenue){
 		this.res = res;
-		Res.setText("Random auto's:  " + rand);
+		Res.setText("Reservatie auto's:  " + res);
 		this.abo = abo;
-		Abo.setText("Reserved autos:  " + res);
+		Abo.setText("Abonee auto's:      " + abo);
 		this.rand = rand;
-		Rand.setText("Abonee autos:    " + abo);
+		Rand.setText("Normale auto's:    " + rand);
 		this.empty = empty;
-		Empty.setText("Lege plekken:     " + empty);
+		Empty.setText("Lege plekken:   " + empty);
 		this.revenue = revenue;
 		Revenue.setText("Total revenue: " + revenue);
 		this.repaint();

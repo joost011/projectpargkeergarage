@@ -10,7 +10,7 @@ import javax.swing.*;
 import logic.*;
 
 public class SimulatorView extends JPanel {
-    private CarParkView carParkView;
+	private CarParkView carParkView;
     private int numberOfFloors;
     private int numberOfRows;
     private int numberOfPlaces;
@@ -51,7 +51,7 @@ public class SimulatorView extends JPanel {
         screen.getContentPane().add(controller, BorderLayout.SOUTH);
         screen.getContentPane().add(tabs, BorderLayout.EAST);
         screen.pack();
-        screen.setSize(1400, 650);
+        screen.setSize(1400, 700);
         screen.setVisible(true);
 		screen.setResizable(false);
 		screen.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -145,7 +145,7 @@ public class SimulatorView extends JPanel {
     
     public Location getReservationLocation() {
     	 for (int floor = 2; floor < getNumberOfFloors(); floor++) {
-             for (int row = 2; row < getNumberOfRows(); row++) {
+             for (int row = 0; row < getNumberOfRows(); row++) {
                  for (int place = 0; place < getNumberOfPlaces(); place++) {
                      Location location = new Location(floor, row, place);
                      if (getCarAt(location) == null) {
