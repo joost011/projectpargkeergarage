@@ -467,4 +467,5 @@ public final class Simulator {
 	public static int getDoorgeredenSpecialeAutos() {
 		return doorgeredenSpecialeAutos;
 	}
+
 }
