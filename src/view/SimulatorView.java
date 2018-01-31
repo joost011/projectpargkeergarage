@@ -23,7 +23,13 @@ public class SimulatorView extends JPanel {
     private PieChartView2 piechart;
     private BarView barchart;
 
-
+    /**
+     * Creeert de simulatie
+     * @param numberOfFloors
+     * @param numberOfRows
+     * @param numberOfPlaces
+     * @param simulator
+     */
     public SimulatorView(int numberOfFloors, int numberOfRows, int numberOfPlaces, Simulator simulator) {
         this.numberOfFloors = numberOfFloors;
         this.numberOfRows = numberOfRows;
@@ -51,7 +57,7 @@ public class SimulatorView extends JPanel {
         screen.getContentPane().add(controller, BorderLayout.SOUTH);
         screen.getContentPane().add(tabs, BorderLayout.EAST);
         screen.pack();
-        screen.setSize(1400, 700);
+        screen.setSize(1400, 720);
         screen.setVisible(true);
 		screen.setResizable(false);
 		screen.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -145,7 +151,7 @@ public class SimulatorView extends JPanel {
     
     public Location getReservationLocation() {
     	 for (int floor = 2; floor < getNumberOfFloors(); floor++) {
-             for (int row = 2; row < getNumberOfRows(); row++) {
+             for (int row = 0; row < getNumberOfRows(); row++) {
                  for (int place = 0; place < getNumberOfPlaces(); place++) {
                      Location location = new Location(floor, row, place);
                      if (getCarAt(location) == null) {

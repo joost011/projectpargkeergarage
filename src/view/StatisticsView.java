@@ -123,8 +123,8 @@ public class StatisticsView extends JPanel implements ActionListener{
 	
 	
 	public void plusuur() {
-		if(minuten > 59) {
-			minuten = 0;
+		if(minuten > 58) {
+			minuten = -1;
 			uren++;
 		}
 		if(uren > 23 ) {
