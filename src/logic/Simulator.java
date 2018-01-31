@@ -43,6 +43,13 @@ public final class Simulator {
 	int monthlyAboPay = 0; 					// price per month cardholders have to pay
 	Double resPay = 0.0; 						// price to place a reservation
 	Double revenue = 0.0;						// total monies earned
+	
+	static int revenuevandaag = 0;
+	static int revenuedag2 = 0;
+	static int revenuedag3 = 0;
+	static int revenuedag4 = 0;
+	static int revenuedag5 = 0;
+	static int vorigrevenue = 0;
 
 	static int maxEntranceCarQueue = 100; 	// maximum cars in the normal car queue
 	static int maxSpecialCarQueue = 100; 	// maximum cars in the normal car queue
@@ -97,6 +104,7 @@ public final class Simulator {
 	 */
 	public void tick() {
 		simulatorView.statics().tijdEnDag();
+		revenuevandaag = revenue.intValue() - vorigrevenue;
 		advanceTime();
 		handleExit();
 		updateViews();
@@ -158,7 +166,8 @@ public final class Simulator {
 
 		simulatorView.updateBarChart(currentResCar,currentAboCar,currentRandCar,currentEmpty);			// update BarChart view met nieuwe variabelen
 		simulatorView.updatePieChart(currentResCar,currentAboCar,currentRandCar,currentEmpty, revenue); // update PieChart view met nieuwe variabelen en revenue
-
+		simulatorView.updateRevenueBarChart(revenuevandaag, revenuedag2, revenuedag3, revenuedag4, revenuedag5);
+		
 	}
 
 	/**
@@ -470,6 +479,15 @@ public final class Simulator {
 
 	public static Double getRegularPricePerHour() {
 		return regularPricePerHour;
+	}
+	
+	public static void nieuweDag() {
+		revenuedag5 = revenuedag4;
+		revenuedag4 = revenuedag3;
+		revenuedag3 = revenuedag2;
+		revenuedag2 = revenuevandaag;
+		vorigrevenue = vorigrevenue + revenuedag2;
+		revenuevandaag = 0;
 	}
 
 }

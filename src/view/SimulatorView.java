@@ -22,6 +22,7 @@ public class SimulatorView extends JPanel {
     private JTabbedPane tabs;
     private PieChartView2 piechart;
     private BarView barchart;
+    private RevenueBarView revenuebarchart;
 
     /**
      * Creeert de simulatie
@@ -43,12 +44,14 @@ public class SimulatorView extends JPanel {
         piechart = new PieChartView2();
 
         barchart = new BarView();
+        revenuebarchart = new RevenueBarView();
 
         
         tabs = new JTabbedPane();
 		tabs.setPreferredSize(new Dimension(300, 10));
 		tabs.addTab("PieChart", piechart);
 		tabs.addTab("BarView", barchart);
+		tabs.addTab("Omzet", revenuebarchart);
         
         screen=new JFrame("Project Parkeergarage");
         Container contentPane = screen.getContentPane();
@@ -57,7 +60,7 @@ public class SimulatorView extends JPanel {
         screen.getContentPane().add(controller, BorderLayout.SOUTH);
         screen.getContentPane().add(tabs, BorderLayout.EAST);
         screen.pack();
-        screen.setSize(1400, 720);
+        screen.setSize(1400, 800);
         screen.setVisible(true);
 		screen.setResizable(false);
 		screen.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -98,6 +101,10 @@ public class SimulatorView extends JPanel {
     
     public void updateBarChart(int res, int abo, int rand, int empty) {
     	barchart.repaint( res,  abo,  rand,  empty);
+    }
+    
+    public void updateRevenueBarChart(int vandaag, int dag2, int dag3, int dag4, int dag5) {
+    	revenuebarchart.repaint( vandaag, dag2, dag3, dag4, dag5);
     }
     
     public Car getCarAt(Location location) {
@@ -180,6 +187,7 @@ public class SimulatorView extends JPanel {
     }
 
     public void tick() {
+    	
         for (int floor = 0; floor < getNumberOfFloors(); floor++) {
             for (int row = 0; row < getNumberOfRows(); row++) {
                 for (int place = 0; place < getNumberOfPlaces(); place++) {

@@ -25,12 +25,15 @@ public class StatisticsView extends JPanel implements ActionListener{
 	private JLabel paswachtrij;
 	private JLabel maxgewonewachtrijlabel;
 	private JLabel maxspecialewachtrijlabel;
+	private JLabel verstrekendagenlabel;
 	private JButton update;
 	private JPanel viewpanel;
 	private int uren = 0;
 	private int minuten = 0;
 	private String[] dagen;
 	private int x = 0;
+	private int verstrekendagen = 0;
+	private int dagVoorbij = 0;
 	private JTextField snelheid;
 	private JTextField prijs;
 	private JTextField weekdagaankomst;
@@ -54,12 +57,15 @@ public class StatisticsView extends JPanel implements ActionListener{
 		dagen[6] = "Zondag";
 		
 		viewpanel = new JPanel();
-		viewpanel.setLayout(new GridLayout(25,10));
+		viewpanel.setLayout(new GridLayout(26,10));
 		
 		tijd = new JLabel("Tijdstip: 0:00");
 		viewpanel.add(tijd);
 		dag = new JLabel("Dag: Maandag");
 		viewpanel.add(dag);
+		
+		verstrekendagenlabel = new JLabel("Verstreken dagen: 0");
+		viewpanel.add(verstrekendagenlabel);
 		
 		empty = new JLabel("");
 		viewpanel.add(empty);
@@ -153,12 +159,15 @@ public class StatisticsView extends JPanel implements ActionListener{
 		paswachtrij.setText("Speciale wachtrij: "+String.valueOf(Simulator.getPassCarQueue()));
 		gewonedoorgereden.setText("Doorgereden: "+String.valueOf(Simulator.getDoorgeredenAutos()));
 		specialedoorgereden.setText("Doorgereden (speicaal): "+String.valueOf(Simulator.getDoorgeredenSpecialeAutos()));
+		verstrekendagenlabel.setText("Verstreken dagen: "+String.valueOf(verstrekendagen));
 	}
 	
 	public void plusdag() {
 		
 		if(uren==23 && minuten == 59) {
 			x++;
+			verstrekendagen++;
+			Simulator.nieuweDag();
 			if(x==7) {
 				x = 0;
 			}
