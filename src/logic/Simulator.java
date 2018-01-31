@@ -64,8 +64,10 @@ public final class Simulator {
 	 * Start de simulatie
 	 */
 	public void start() {
-		this.run = true;
-		run();
+		if(!this.run){
+			this.run = true;
+			run();
+		}
 	}
 
 	/**
@@ -88,8 +90,8 @@ public final class Simulator {
 		}
 		while(this.run == true);
 	}
-	
-	
+
+
 	/**
 	 *  Laat alle variabelen zijn werk doen
 	 */
@@ -106,8 +108,8 @@ public final class Simulator {
 		}
 		handleEntrance();
 	}
-	
-	
+
+
 	/**
 	 * Laat tijd velemalen sneller gaan dan normaal
 	 */
@@ -127,7 +129,7 @@ public final class Simulator {
 		}
 
 	}
-	
+
 	/**
 	 * Hanteert de ingang van auto's
 	 */
@@ -136,7 +138,7 @@ public final class Simulator {
 		carsEntering(entrancePassQueue);
 		carsEntering(entranceCarQueue);  	
 	}
-	
+
 	/**
 	 * Hanteert het verlaten van auto's
 	 */
@@ -145,7 +147,7 @@ public final class Simulator {
 		carsPaying();
 		carsLeaving();
 	}
-	
+
 	/**
 	 * Update de simulatie
 	 */
@@ -158,7 +160,7 @@ public final class Simulator {
 		simulatorView.updatePieChart(currentResCar,currentAboCar,currentRandCar,currentEmpty, revenue); // update PieChart view met nieuwe variabelen en revenue
 
 	}
-	
+
 	/**
 	 * Regelt wat er moet gebeuren als auto's aan komen.
 	 */
@@ -190,7 +192,7 @@ public final class Simulator {
 					currentEmpty--; 													// remove one empty spot
 				}
 				catch(NullPointerException e){
-					
+
 				}
 			}
 			else if(car instanceof ParkingPassCar) {
@@ -240,7 +242,7 @@ public final class Simulator {
 	public int getRand(){
 		return currentRandCar;
 	}
-	
+
 	/**
 	 * Getter voor het value van de momentele lege plekken
 	 * @return
@@ -248,7 +250,7 @@ public final class Simulator {
 	public int getEmpty(){
 		return currentEmpty;
 	}
-	
+
 	/**
 	 * Hanteert de auto's die vertrekken
 	 */
@@ -278,7 +280,7 @@ public final class Simulator {
 			car = simulatorView.getFirstLeavingCar();	// initialiseert de getFirstLeavingCar methode
 		}
 	}
-	
+
 	/**
 	 * Hanteert de betaling van de auto's
 	 */
@@ -316,7 +318,7 @@ public final class Simulator {
 
 		// Get the average number of cars that arrive per hour.
 		int averageNumberOfCarsPerHour = day < 5 ? weekDay : weekend; 	// verandert het aantal binnen komende auto's als het door de weeks is of weekend
-						
+
 
 		// Calculate the number of cars that arrive this minute.
 		int x;
