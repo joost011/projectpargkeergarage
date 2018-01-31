@@ -41,7 +41,7 @@ public final class Simulator {
 
 	static Double regularPricePerHour = 4.5; 	// regular price normal cars have to pay
 	int monthlyAboPay = 0; 					// price per month cardholders have to pay
-	int resPay = 0; 						// price to place a reservation
+	Double resPay = 0.0; 						// price to place a reservation
 	Double revenue = 0.0;						// total monies earned
 
 	static int maxEntranceCarQueue = 100; 	// maximum cars in the normal car queue
@@ -398,7 +398,6 @@ public final class Simulator {
 
 	public static void setWeekDayArrivals(int WDA) {
 		weekDayArrivals = WDA;
-		System.out.println("Werkdag: "+weekDayArrivals);
 	}
 
 	public static int getWeekendArrivals() {
@@ -407,7 +406,6 @@ public final class Simulator {
 
 	public static void setWeekendArrivals(int WEA) {
 		weekendArrivals = WEA;
-		System.out.println("Weekend: "+weekendArrivals);
 	}
 
 	public static int getweekDayPassArrivals() {
@@ -416,7 +414,6 @@ public final class Simulator {
 
 	public static void setweekDayPassArrivals(int WDPA) {
 		weekDayPassArrivals = WDPA;
-		System.out.println("Werkdag (met pas): "+weekDayPassArrivals);
 	}
 
 	public static int getweekendPassArrivals() {
@@ -425,7 +422,6 @@ public final class Simulator {
 
 	public static void setweekendPassArrivals(int WEPA) {
 		weekendPassArrivals = WEPA;
-		System.out.println("Weekend (met pas): "+weekendPassArrivals);
 	}
 
 	public static int getNormalCarQueue() {

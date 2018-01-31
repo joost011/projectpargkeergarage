@@ -46,7 +46,7 @@ public class PieChartView2 extends JPanel {
 		space = new JLabel("");
 		thePanel.add(space);
 		
-		Revenue = new JLabel("Total revenue: €" + revenue);
+		Revenue = new JLabel("Totale omzet: €" + revenue);
 		thePanel.add(Revenue);
 		
 		add(thePanel);
@@ -89,7 +89,7 @@ public class PieChartView2 extends JPanel {
 		this.empty = empty;
 		Empty.setText("Lege plekken:   " + empty);
 		this.revenue = revenue;
-		Revenue.setText("Total revenue: €" + df2.format(revenue));
+		Revenue.setText("Totale omzet: €" + df2.format(revenue));
 		this.repaint();
 	}
 

@@ -11,6 +11,8 @@ public class ReservationCar extends Car {
     	int stayMinutes = (int) (15 + random.nextFloat() * 3 * 240);
         this.setMinutesLeft(stayMinutes);
         this.setHasToPay(false);
+        Double stayMinutesDouble = 1.0 * stayMinutes;
+        this.setHasToPayAmount(((double) Math.round(stayMinutesDouble / 60 * Simulator.getRegularPricePerHour() *100) / 100) + 5);
     }
     
     public Color getColor(){

@@ -186,7 +186,7 @@ public class StatisticsView extends JPanel implements ActionListener{
 		String maximaalgewonewachtrij = maxgewonewachtrij.getText();
 		String maximaalspeciaalwachtrij = maxspecialewachtrij.getText();
 		String deprijs = prijs.getText();
-		Double deprijsdouble = Integer.parseInt(deprijs) * 1.0;
+		Double deprijsdouble = Double.parseDouble(deprijs);
 		Simulator.setTickPause(Integer.parseInt(snel));
 		Simulator.setWeekDayArrivals(Integer.parseInt(weekautos));
 		Simulator.setWeekendArrivals(Integer.parseInt(weekendautos));
