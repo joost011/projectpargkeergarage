@@ -39,7 +39,7 @@ public final class Simulator {
 	int paymentSpeed = 7; 					// number of cars that can pay per minute
 	int exitSpeed = 5; 						// number of cars that can leave per minute
 
-	static Double regularPricePerHour = 0.5; 	// regular price normal cars have to pay
+	static Double regularPricePerHour = 1.5; 	// regular price normal cars have to pay
 	int monthlyAboPay = 0; 					// price per month cardholders have to pay
 	Double resPay = 0.0; 						// price to place a reservation
 	Double revenue = 0.0;						// total monies earned
@@ -56,6 +56,8 @@ public final class Simulator {
 
 	static int doorgeredenAutos= 0;			// Aantal doorgereden outo's
 	static int doorgeredenSpecialeAutos= 0; // Aantal doorgereden speciale auto's
+	
+	private int[] autoUren = new int[24];
 
 	public Simulator() {
 		entranceCarQueue = new CarQueue();						// Start een entranceQueue
@@ -127,6 +129,25 @@ public final class Simulator {
 		while (minute > 59) {
 			minute -= 60;
 			hour++;
+			int totalCars = currentResCar + currentAboCar + currentRandCar;
+			for (int i=0; i<24; i++) {
+				if(i<23) {
+					int iplus = i+1;
+					autoUren[i] = autoUren[iplus];
+				}
+				else {
+					autoUren[i] = totalCars;
+				}
+			}
+			for (int i=0; i<24; i++) {
+				if(i<23) {
+					int iplus = i+1;
+					autoUren[i] = autoUren[iplus];
+				}
+				else {
+					autoUren[i] = totalCars;
+				}
+			}
 		}
 		while (hour > 23) {
 			hour -= 24;
@@ -167,7 +188,7 @@ public final class Simulator {
 		simulatorView.updateBarChart(currentResCar,currentAboCar,currentRandCar,currentEmpty);			// update BarChart view met nieuwe variabelen
 		simulatorView.updatePieChart(currentResCar,currentAboCar,currentRandCar,currentEmpty, revenue); // update PieChart view met nieuwe variabelen en revenue
 		simulatorView.updateRevenueBarChart(revenuevandaag, revenuedag2, revenuedag3, revenuedag4, revenuedag5);
-		
+		simulatorView.updateLineChart(autoUren);
 	}
 
 	/**
