@@ -23,6 +23,7 @@ public class SimulatorView extends JPanel {
     private PieChartView2 piechart;
     private BarView barchart;
     private RevenueBarView revenuebarchart;
+    private LineChartView linechart;
 
     /**
      * Creeert de simulatie
@@ -45,6 +46,8 @@ public class SimulatorView extends JPanel {
 
         barchart = new BarView();
         revenuebarchart = new RevenueBarView();
+        linechart = new LineChartView();
+        linechart.dataNul();
 
         
         tabs = new JTabbedPane();
@@ -52,6 +55,7 @@ public class SimulatorView extends JPanel {
 		tabs.addTab("PieChart", piechart);
 		tabs.addTab("BarView", barchart);
 		tabs.addTab("Omzet", revenuebarchart);
+		tabs.addTab("LineChart", linechart);
         
         screen=new JFrame("Project Parkeergarage");
         Container contentPane = screen.getContentPane();
@@ -105,6 +109,10 @@ public class SimulatorView extends JPanel {
     
     public void updateRevenueBarChart(int vandaag, int dag2, int dag3, int dag4, int dag5) {
     	revenuebarchart.repaint( vandaag, dag2, dag3, dag4, dag5);
+    }
+    
+    public void updateLineChart(int[] uren) {
+    	linechart.repaint(uren);
     }
     
     public Car getCarAt(Location location) {
