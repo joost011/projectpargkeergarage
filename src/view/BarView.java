@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 
@@ -14,6 +15,7 @@ public class BarView extends JPanel {
 	private int abo; // abonoment
 	private int rand; //random auto's
 	private int empty; // empty spots
+	private JLabel space;
 	private JLabel reslabel;
 	private JLabel abolabel;
 	private JLabel randlabel;
@@ -25,12 +27,16 @@ public class BarView extends JPanel {
 		barpanel = new JPanel();
 		barpanel.setLayout(new GridLayout(45,80)); 
 		
-		reslabel = new JLabel("Reservatie auto's: " + res);
+		reslabel = new JLabel("  Reservatie auto's: " + res);
 		barpanel.add(reslabel);
-		abolabel = new JLabel("Abonnement auto's: " + abo);
+		abolabel = new JLabel("  Abonnement auto's: " + abo);
 		barpanel.add(abolabel);
-		randlabel = new JLabel("Random auto's: " + rand);
+		randlabel = new JLabel("  Random auto's: " + rand);
 		barpanel.add(randlabel);
+		
+		space = new JLabel("");
+		space.setPreferredSize(new Dimension(180,0));
+		barpanel.add(space);
 		
 		add(barpanel);
 		setVisible(true);
@@ -59,22 +65,22 @@ public class BarView extends JPanel {
 		g.drawString("0", 20, 300);
 		
 		g.setColor(Color.GREEN);
-		g.fillRect(65, 9, 10, 10);
+		g.fillRect(40, 9, 10, 10);
 		
 		g.setColor(Color.BLUE);
-		g.fillRect(65, 25, 10, 10);
+		g.fillRect(40, 25, 10, 10);
 		
 		g.setColor(Color.RED);
-		g.fillRect(65, 41, 10, 10);
+		g.fillRect(40, 41, 10, 10);
 	}
 	
 	public void repaint(int res, int abo, int rand, int empty){
 		this.res = res;
-		reslabel.setText("Reservatie auto's: " + res);
+		reslabel.setText("  Reservatie auto's: " + res);
 		this.abo = abo;
-		abolabel.setText("Abonnement auto's: " + abo);
+		abolabel.setText("  Abonnement auto's: " + abo);
 		this.rand = rand;
-		randlabel.setText("Random auto's: " + rand);
+		randlabel.setText("  Random auto's: " + rand);
 		this.empty = empty;
 		this.repaint();
 	}

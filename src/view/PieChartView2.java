@@ -31,6 +31,8 @@ public class PieChartView2 extends JPanel {
 	
 	private static DecimalFormat df2 = new DecimalFormat(".##");
 	
+	
+	
 	public PieChartView2() {
 		this.setOpaque(false);
 		thePanel = new JPanel();
