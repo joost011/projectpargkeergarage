@@ -43,7 +43,7 @@ public final class Simulator {
 	int monthlyAboPay = 0; 					// price per month cardholders have to pay
 	Double resPay = 0.0; 						// price to place a reservation
 	Double revenue = 0.0;						// total monies earned
-	
+
 	static int revenuevandaag = 0;
 	static int revenuedag2 = 0;
 	static int revenuedag3 = 0;
@@ -56,7 +56,7 @@ public final class Simulator {
 
 	static int doorgeredenAutos= 0;			// Aantal doorgereden outo's
 	static int doorgeredenSpecialeAutos= 0; // Aantal doorgereden speciale auto's
-	
+
 	private int[] autoUren = new int[24];
 
 	public Simulator() {
@@ -358,7 +358,10 @@ public final class Simulator {
 				simulatorView.statics().uur()<=16) ||
 				(simulatorView.statics().uur()>=18 &&	
 				simulatorView.statics().uur()<=22)) {
-			if(simulatorView.statics().dag().equals("Donderdag")){
+			if(simulatorView.statics().dag().equals("Donderdag") ||
+					simulatorView.statics().dag().equals("Vrijdag")  ||
+					simulatorView.statics().dag().equals("Zaterdag") ||
+					simulatorView.statics().dag().equals("Zondag")){
 				x=80;
 			}
 			else{
@@ -500,7 +503,7 @@ public final class Simulator {
 	public static int getDoorgeredenSpecialeAutos() {
 		return doorgeredenSpecialeAutos;
 	}
-	
+
 	public static void setRegularPricePerHour(Double RPPH) {
 		regularPricePerHour = RPPH;
 	}
@@ -508,7 +511,7 @@ public final class Simulator {
 	public static Double getRegularPricePerHour() {
 		return regularPricePerHour;
 	}
-	
+
 	public static void nieuweDag() {
 		revenuedag5 = revenuedag4;
 		revenuedag4 = revenuedag3;
