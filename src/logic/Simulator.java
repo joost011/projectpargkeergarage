@@ -395,7 +395,7 @@ public final class Simulator {
 		case AD_HOC: 
 			for (int i = 0; i < numberOfCars; i++) {
 				int  n = rand.nextInt(maxEntranceCarQueue +1); // n = random number between 0 and the max number of normal cars in queue
-				if (n > entranceCarQueue.carsInQueue() || entranceCarQueue.carsInQueue() == 0) {
+				if (n > entranceCarQueue.carsInQueue() || entranceCarQueue.carsInQueue() < maxEntranceCarQueue/10) {
 					entranceCarQueue.addCar(new AdHocCar());
 				}
 				else {
@@ -406,7 +406,7 @@ public final class Simulator {
 		case PASS:
 			for (int i = 0; i < numberOfCars; i++) {
 				int  n = rand.nextInt(maxSpecialCarQueue +1);
-				if (n > entrancePassQueue.carsInQueue() || entrancePassQueue.carsInQueue() == 0) {
+				if (n > entrancePassQueue.carsInQueue() || entrancePassQueue.carsInQueue() < maxSpecialCarQueue/10) {
 					entrancePassQueue.addCar(new ParkingPassCar());
 				}
 				else {
@@ -417,7 +417,7 @@ public final class Simulator {
 		case RES:
 			for (int i = 0; i < numberOfCars; i++) {
 				int  n = rand.nextInt(maxSpecialCarQueue +1);
-				if (n > entrancePassQueue.carsInQueue() || entrancePassQueue.carsInQueue() == 0) {
+				if (n > entrancePassQueue.carsInQueue() || entrancePassQueue.carsInQueue() < maxSpecialCarQueue/10) {
 					entrancePassQueue.addCar(new ReservationCar());
 				}
 				else {
