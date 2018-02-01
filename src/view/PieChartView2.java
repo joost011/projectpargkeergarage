@@ -1,5 +1,6 @@
 package view;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.text.DecimalFormat;
@@ -14,7 +15,11 @@ public class PieChartView2 extends JPanel {
 	private int abo; // abonoment
 	private int rand; //random auto's
 	private int empty; // empty spots
-	private Double revenue;
+	private float floatyRes;
+	private float floatyAbo;
+	private float floatyRand;
+	private float floatyEmpty;
+	private Double revenue = .0;
 	private JPanel thePanel;
 	private JLabel Rand;
 	private JLabel Res;
@@ -40,13 +45,15 @@ public class PieChartView2 extends JPanel {
 		Abo = new JLabel("Abonee auto's:      " + abo);
 		thePanel.add(Abo);
 		
-		Empty = new JLabel("Lege plekken:       " + empty);
+		Empty = new JLabel("Lege plekken:        " + empty);
+		
 		thePanel.add(Empty);
 		
 		space = new JLabel("");
+		space.setPreferredSize(new Dimension(225,10));
 		thePanel.add(space);
 		
-		Revenue = new JLabel("Totale omzet: €" + revenue);
+		Revenue = new JLabel("Totale omzet: \u20ac" + revenue);
 		thePanel.add(Revenue);
 		
 		add(thePanel);
@@ -63,14 +70,14 @@ public class PieChartView2 extends JPanel {
 		g.fillOval(45, 140, 200, 200);
 
 		g.setColor(Color.WHITE);// empty
-		g.fillArc(45, 140, 200, 200, 90, -(rand+abo+res+empty));
+		g.fillArc(45, 140, 200, 200, 90, (int) -floatyEmpty);
 		g.setColor(Color.GREEN);// res
-		g.fillArc(45, 140, 200, 200, 90, -(rand+abo+(res/2)));
+		g.fillArc(45, 140, 200, 200, 90, (int) -floatyRes);
 		g.setColor(Color.BLUE); // abo
-		g.fillArc(45, 140, 200, 200, 90, -(rand+abo));
+		g.fillArc(45, 140, 200, 200, 90, (int) -floatyAbo);
 		g.setColor(Color.RED); // rand
 
-		g.fillArc(45, 140, 200, 200, 90, -rand);
+		g.fillArc(45, 140, 200, 200, 90, (int) -floatyRand);
 		
 		g.setColor(Color.BLACK);
 		g.drawOval(45, 140,200,200);
@@ -81,15 +88,19 @@ public class PieChartView2 extends JPanel {
 
 	public void repaint(int res, int abo, int rand, int empty, Double revenue){
 		this.res = res;
+		this.floatyRes = (rand+abo+res)/1.5f;
 		Res.setText("Reservatie auto's:  " + res);
 		this.abo = abo;
+		this.floatyAbo = (rand+abo)/1.5f;
 		Abo.setText("Abonee auto's:      " + abo);
 		this.rand = rand;
+		this.floatyRand = rand/1.5f;
 		Rand.setText("Normale auto's:    " + rand);
 		this.empty = empty;
-		Empty.setText("Lege plekken:   " + empty);
+		this.floatyEmpty = (rand+abo+res+empty)/1.5f;
+		Empty.setText("Lege plekken:        " + empty);
 		this.revenue = revenue;
-		Revenue.setText("Totale omzet: €" + df2.format(revenue));
+		Revenue.setText("Totale omzet: \u20ac" + df2.format(revenue));
 		this.repaint();
 	}
 

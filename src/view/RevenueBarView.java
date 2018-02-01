@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 
@@ -19,6 +20,7 @@ public class RevenueBarView extends JPanel {
 	private JLabel dag3label;
 	private JLabel dag4label;
 	private JLabel dag5label;
+	private JLabel space;
 	private JPanel revenuebarpanel;
 	
 	public RevenueBarView() {
@@ -38,6 +40,10 @@ public class RevenueBarView extends JPanel {
 		revenuebarpanel.add(dag4label);
 		dag5label = new JLabel("Omzet 4 dagen geleden: 0");
 		revenuebarpanel.add(dag5label);
+		
+		space = new JLabel("");
+		space.setPreferredSize(new Dimension(225, 10));
+		revenuebarpanel.add(space);
 		
 		add(revenuebarpanel);
 		setVisible(true);
