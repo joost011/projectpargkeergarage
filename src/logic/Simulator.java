@@ -39,10 +39,17 @@ public final class Simulator {
 	int paymentSpeed = 7; 					// number of cars that can pay per minute
 	int exitSpeed = 5; 						// number of cars that can leave per minute
 
-	int regularPay = 7; 					// regular price normal cars have to pay
+	static Double regularPricePerHour = 4.5; 	// regular price normal cars have to pay
 	int monthlyAboPay = 0; 					// price per month cardholders have to pay
-	int resPay = 0; 						// price to place a reservation
-	int revenue = 0;						// total monies earned
+	Double resPay = 0.0; 						// price to place a reservation
+	Double revenue = 0.0;						// total monies earned
+	
+	static int revenuevandaag = 0;
+	static int revenuedag2 = 0;
+	static int revenuedag3 = 0;
+	static int revenuedag4 = 0;
+	static int revenuedag5 = 0;
+	static int vorigrevenue = 0;
 
 	static int maxEntranceCarQueue = 100; 	// maximum cars in the normal car queue
 	static int maxSpecialCarQueue = 100; 	// maximum cars in the normal car queue
@@ -97,6 +104,7 @@ public final class Simulator {
 	 */
 	public void tick() {
 		simulatorView.statics().tijdEnDag();
+		revenuevandaag = revenue.intValue() - vorigrevenue;
 		advanceTime();
 		handleExit();
 		updateViews();
@@ -158,7 +166,8 @@ public final class Simulator {
 
 		simulatorView.updateBarChart(currentResCar,currentAboCar,currentRandCar,currentEmpty);			// update BarChart view met nieuwe variabelen
 		simulatorView.updatePieChart(currentResCar,currentAboCar,currentRandCar,currentEmpty, revenue); // update PieChart view met nieuwe variabelen en revenue
-
+		simulatorView.updateRevenueBarChart(revenuevandaag, revenuedag2, revenuedag3, revenuedag4, revenuedag5);
+		
 	}
 
 	/**
@@ -289,7 +298,7 @@ public final class Simulator {
 		int i=0;
 		while (paymentCarQueue.carsInQueue()>0 && i < paymentSpeed){
 			Car car = paymentCarQueue.removeCar();
-			revenue+=regularPay;										// voegt het betaalbedrag aan de totale opwinsten op
+			revenue+=car.getHasToPayAmount();							// voegt het betaalbedrag aan de totale opwinsten op
 			carLeavesSpot(car);											// Auto verlaat de plek
 			i++;
 		}
@@ -398,7 +407,6 @@ public final class Simulator {
 
 	public static void setWeekDayArrivals(int WDA) {
 		weekDayArrivals = WDA;
-		System.out.println("Werkdag: "+weekDayArrivals);
 	}
 
 	public static int getWeekendArrivals() {
@@ -407,7 +415,6 @@ public final class Simulator {
 
 	public static void setWeekendArrivals(int WEA) {
 		weekendArrivals = WEA;
-		System.out.println("Weekend: "+weekendArrivals);
 	}
 
 	public static int getweekDayPassArrivals() {
@@ -416,7 +423,6 @@ public final class Simulator {
 
 	public static void setweekDayPassArrivals(int WDPA) {
 		weekDayPassArrivals = WDPA;
-		System.out.println("Werkdag (met pas): "+weekDayPassArrivals);
 	}
 
 	public static int getweekendPassArrivals() {
@@ -425,7 +431,6 @@ public final class Simulator {
 
 	public static void setweekendPassArrivals(int WEPA) {
 		weekendPassArrivals = WEPA;
-		System.out.println("Weekend (met pas): "+weekendPassArrivals);
 	}
 
 	public static int getNormalCarQueue() {
@@ -467,4 +472,22 @@ public final class Simulator {
 	public static int getDoorgeredenSpecialeAutos() {
 		return doorgeredenSpecialeAutos;
 	}
+	
+	public static void setRegularPricePerHour(Double RPPH) {
+		regularPricePerHour = RPPH;
+	}
+
+	public static Double getRegularPricePerHour() {
+		return regularPricePerHour;
+	}
+	
+	public static void nieuweDag() {
+		revenuedag5 = revenuedag4;
+		revenuedag4 = revenuedag3;
+		revenuedag3 = revenuedag2;
+		revenuedag2 = revenuevandaag;
+		vorigrevenue = vorigrevenue + revenuedag2;
+		revenuevandaag = 0;
+	}
+
 }

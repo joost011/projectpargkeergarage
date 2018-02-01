@@ -10,6 +10,7 @@ import runner.*;
 public class StatisticsView extends JPanel implements ActionListener{
 	
 	private JLabel snelheidlabel;
+	private JLabel prijslabel;
 	private JLabel dag;
 	private JLabel tijd;
 	private JLabel empty;
@@ -24,13 +25,17 @@ public class StatisticsView extends JPanel implements ActionListener{
 	private JLabel paswachtrij;
 	private JLabel maxgewonewachtrijlabel;
 	private JLabel maxspecialewachtrijlabel;
+	private JLabel verstrekendagenlabel;
 	private JButton update;
 	private JPanel viewpanel;
 	private int uren = 0;
 	private int minuten = 0;
 	private String[] dagen;
 	private int x = 0;
+	private int verstrekendagen = 0;
+	private int dagVoorbij = 0;
 	private JTextField snelheid;
+	private JTextField prijs;
 	private JTextField weekdagaankomst;
 	private JTextField weekendaankomst;
 	private JTextField werkdagpasdaankomst;
@@ -52,12 +57,15 @@ public class StatisticsView extends JPanel implements ActionListener{
 		dagen[6] = "Zondag";
 		
 		viewpanel = new JPanel();
-		viewpanel.setLayout(new GridLayout(25,10));
+		viewpanel.setLayout(new GridLayout(26,10));
 		
 		tijd = new JLabel("Tijdstip: 0:00");
 		viewpanel.add(tijd);
 		dag = new JLabel("Dag: Maandag");
 		viewpanel.add(dag);
+		
+		verstrekendagenlabel = new JLabel("Verstreken dagen: 0");
+		viewpanel.add(verstrekendagenlabel);
 		
 		empty = new JLabel("");
 		viewpanel.add(empty);
@@ -66,6 +74,11 @@ public class StatisticsView extends JPanel implements ActionListener{
 		viewpanel.add(snelheidlabel);
 		snelheid = new JTextField(String.valueOf(Simulator.getTickPause()));
 		viewpanel.add(snelheid);
+		
+		prijslabel = new JLabel("Prijs per uur:");
+		viewpanel.add(prijslabel);
+		prijs = new JTextField(String.valueOf(Simulator.getRegularPricePerHour()));
+		viewpanel.add(prijs);
 		
 		gemiddeld = new JLabel("Gemiddeld aantal auto's per uur:");
 		viewpanel.add(gemiddeld);
@@ -146,12 +159,15 @@ public class StatisticsView extends JPanel implements ActionListener{
 		paswachtrij.setText("Speciale wachtrij: "+String.valueOf(Simulator.getPassCarQueue()));
 		gewonedoorgereden.setText("Doorgereden: "+String.valueOf(Simulator.getDoorgeredenAutos()));
 		specialedoorgereden.setText("Doorgereden (speicaal): "+String.valueOf(Simulator.getDoorgeredenSpecialeAutos()));
+		verstrekendagenlabel.setText("Verstreken dagen: "+String.valueOf(verstrekendagen));
 	}
 	
 	public void plusdag() {
 		
 		if(uren==23 && minuten == 59) {
 			x++;
+			verstrekendagen++;
+			Simulator.nieuweDag();
 			if(x==7) {
 				x = 0;
 			}
@@ -178,6 +194,8 @@ public class StatisticsView extends JPanel implements ActionListener{
 		String weekendpasdautos = weekendpasdaankomst.getText();
 		String maximaalgewonewachtrij = maxgewonewachtrij.getText();
 		String maximaalspeciaalwachtrij = maxspecialewachtrij.getText();
+		String deprijs = prijs.getText();
+		Double deprijsdouble = Double.parseDouble(deprijs);
 		Simulator.setTickPause(Integer.parseInt(snel));
 		Simulator.setWeekDayArrivals(Integer.parseInt(weekautos));
 		Simulator.setWeekendArrivals(Integer.parseInt(weekendautos));
@@ -185,5 +203,6 @@ public class StatisticsView extends JPanel implements ActionListener{
 		Simulator.setweekendPassArrivals(Integer.parseInt(weekendpasdautos));
 		Simulator.setMaxEntranceCarQueue(Integer.parseInt(maximaalgewonewachtrij));
 		Simulator.setMaxSpecialCarQueue(Integer.parseInt(maximaalspeciaalwachtrij));
+		Simulator.setRegularPricePerHour(deprijsdouble);
 	}
 }
