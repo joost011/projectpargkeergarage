@@ -103,15 +103,9 @@ public class StatisticsView extends JPanel implements ActionListener{
 		weekendpasdaankomst = new JTextField(String.valueOf(Simulator.getweekendPassArrivals()));
 		viewpanel.add(weekendpasdaankomst);
 		
-		maxgewonewachtrijlabel = new JLabel("Maximale wachtrij (normale auto's)");
-		viewpanel.add(maxgewonewachtrijlabel);
-		maxgewonewachtrij = new JTextField(String.valueOf(Simulator.getMaxEntranceCarQueue()));
-		viewpanel.add(maxgewonewachtrij);
-		
-		maxspecialewachtrijlabel = new JLabel("Maximale wachtrij (speciale auto's)");
-		viewpanel.add(maxspecialewachtrijlabel);
-		maxspecialewachtrij = new JTextField(String.valueOf(Simulator.getMaxSpecialCarQueue()));
-		viewpanel.add(maxspecialewachtrij);
+		update = new JButton("Update");
+		update.addActionListener(this);
+		viewpanel.add(update);
 		
 		gewonewachtrij = new JLabel("Gewone wachtrij: "+String.valueOf(Simulator.getNormalCarQueue()));
 		viewpanel.add(gewonewachtrij);
@@ -125,11 +119,15 @@ public class StatisticsView extends JPanel implements ActionListener{
 		specialedoorgereden = new JLabel("Doorgereden (speciaal): "+String.valueOf(Simulator.getDoorgeredenAutos()));
 		viewpanel.add(specialedoorgereden);
 		
+		maxgewonewachtrijlabel = new JLabel("Maximale wachtrij (normale auto's)");
+		viewpanel.add(maxgewonewachtrijlabel);
+		maxgewonewachtrij = new JTextField(String.valueOf(Simulator.getMaxEntranceCarQueue()));
+		viewpanel.add(maxgewonewachtrij);
 		
-		
-		update = new JButton("Update");
-		update.addActionListener(this);
-		viewpanel.add(update);
+		maxspecialewachtrijlabel = new JLabel("Maximale wachtrij (speciale auto's)");
+		viewpanel.add(maxspecialewachtrijlabel);
+		maxspecialewachtrij = new JTextField(String.valueOf(Simulator.getMaxSpecialCarQueue()));
+		viewpanel.add(maxspecialewachtrij);
 		
 		add(viewpanel);
 		setVisible(true);
