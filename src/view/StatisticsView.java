@@ -67,8 +67,8 @@ public class StatisticsView extends JPanel implements ActionListener{
 		verstrekendagenlabel = new JLabel("Verstreken dagen: 0");
 		viewpanel.add(verstrekendagenlabel);
 		
-		empty = new JLabel("");
-		viewpanel.add(empty);
+//		empty = new JLabel("");
+//		viewpanel.add(empty);
 		
 		snelheidlabel = new JLabel("Stappenpauze:");
 		viewpanel.add(snelheidlabel);
@@ -178,6 +178,10 @@ public class StatisticsView extends JPanel implements ActionListener{
 	
 	public int uur() {
 		return uren;
+	}
+	
+	public String dag(){
+		return dagen[x];
 	}
 	
 	public void tijdEnDag() {

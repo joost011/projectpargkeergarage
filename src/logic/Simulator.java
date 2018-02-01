@@ -28,18 +28,18 @@ public final class Simulator {
 	private int currentRandCar = 0;			// Hoeveelheid random auto's in de garage
 	private int currentEmpty = 0;			// Hoeveelheid lege plekken
 
-	private static int tickPause = 100;		// Pause tussen elke loop
+	private static int tickPause = 10;		// Pause tussen elke loop
 
-	static int weekDayArrivals= 200;		// average number of arriving cars per hour
-	static int weekendArrivals = 100; 		// average number of arriving cars per hour
+	static int weekDayArrivals= 150;		// average number of arriving cars per hour
+	static int weekendArrivals = 200; 		// average number of arriving cars per hour
 	static int weekDayPassArrivals= 100; 	// average number of arriving cars per hour
-	static int weekendPassArrivals = 50; 	// average number of arriving cars per hour
+	static int weekendPassArrivals = 80; 	// average number of arriving cars per hour
 
 	int enterSpeed = 3; 					// number of cars that can enter per minute
 	int paymentSpeed = 7; 					// number of cars that can pay per minute
 	int exitSpeed = 5; 						// number of cars that can leave per minute
 
-	static Double regularPricePerHour = 4.5; 	// regular price normal cars have to pay
+	static Double regularPricePerHour = 0.5; 	// regular price normal cars have to pay
 	int monthlyAboPay = 0; 					// price per month cardholders have to pay
 	Double resPay = 0.0; 						// price to place a reservation
 	Double revenue = 0.0;						// total monies earned
@@ -201,7 +201,7 @@ public final class Simulator {
 					currentEmpty--; 													// remove one empty spot
 				}
 				catch(NullPointerException e){
-
+					doorgeredenSpecialeAutos++;
 				}
 			}
 			else if(car instanceof ParkingPassCar) {
@@ -212,6 +212,7 @@ public final class Simulator {
 					currentEmpty--; 													// remove one empty spot
 				}
 				catch(NullPointerException e){
+					doorgeredenSpecialeAutos++;
 				}
 			}
 			else {
@@ -222,6 +223,7 @@ public final class Simulator {
 					currentEmpty--; 													// remove one empty spot
 				}
 				catch(NullPointerException e){
+					doorgeredenAutos++;
 				}
 			}
 			i++;
@@ -335,19 +337,24 @@ public final class Simulator {
 				simulatorView.statics().uur()<=16) ||
 				(simulatorView.statics().uur()>=18 &&	
 				simulatorView.statics().uur()<=22)) {
-			x = 200;
+			if(simulatorView.statics().dag().equals("Donderdag")){
+				x=80;
+			}
+			else{
+				x = 125;
+			}
 		}
 		else if (simulatorView.statics().uur()>=0 &&			
 				simulatorView.statics().uur()<=7){
-			x = 300;
+			x = 360;
 		}
 		else if (simulatorView.statics().uur()>=8 &&
-				simulatorView.statics().uur()<=12 
+				simulatorView.statics().uur()<=10 
 				) {
-			x = 250;
+			x = 125;
 		}
 		else {
-			x = 280;
+			x = 200;
 		}
 
 		double standardDeviation = averageNumberOfCarsPerHour * 0.3;
