@@ -51,7 +51,7 @@ public class SimulatorView extends JPanel {
 
         
         tabs = new JTabbedPane();
-		tabs.setPreferredSize(new Dimension(300, 10));
+		tabs.setPreferredSize(new Dimension(320, 10));
 		tabs.addTab("PieChart", piechart);
 		tabs.addTab("BarView", barchart);
 		tabs.addTab("Omzet", revenuebarchart);
@@ -151,7 +151,7 @@ public class SimulatorView extends JPanel {
     }
 
     public Location getFirstFreeLocation() {
-        for (int floor = 0; floor < getNumberOfFloors(); floor++) {
+        for (int floor = 0; floor < 2; floor++) {
             for (int row = 0; row < getNumberOfRows(); row++) {
                 for (int place = 0; place < getNumberOfPlaces(); place++) {
                     Location location = new Location(floor, row, place);

@@ -67,20 +67,20 @@ public class PieChartView2 extends JPanel {
 		super.paintChildren(g);
 
 		g.setColor(Color.WHITE);
-		g.fillOval(45, 140, 200, 200);
+		g.fillOval(50, 140, 200, 200);
 
 		g.setColor(Color.WHITE);// empty
-		g.fillArc(45, 140, 200, 200, 90, (int) -floatyEmpty);
+		g.fillArc(50, 140, 200, 200, 90, (int) -floatyEmpty);
 		g.setColor(Color.GREEN);// res
-		g.fillArc(45, 140, 200, 200, 90, (int) -floatyRes);
+		g.fillArc(50, 140, 200, 200, 90, (int) -floatyRes);
 		g.setColor(Color.BLUE); // abo
-		g.fillArc(45, 140, 200, 200, 90, (int) -floatyAbo);
+		g.fillArc(50, 140, 200, 200, 90, (int) -floatyAbo);
 		g.setColor(Color.RED); // rand
 
-		g.fillArc(45, 140, 200, 200, 90, (int) -floatyRand);
+		g.fillArc(50, 140, 200, 200, 90, (int) -floatyRand);
 		
 		g.setColor(Color.BLACK);
-		g.drawOval(45, 140,200,200);
+		g.drawOval(50, 140,200,200);
 
 
 
