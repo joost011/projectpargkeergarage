@@ -189,6 +189,7 @@ public final class Simulator {
 		simulatorView.updatePieChart(currentResCar,currentAboCar,currentRandCar,currentEmpty, revenue); // update PieChart view met nieuwe variabelen en revenue
 		simulatorView.updateRevenueBarChart(revenuevandaag, revenuedag2, revenuedag3, revenuedag4, revenuedag5);
 		simulatorView.updateLineChart(autoUren);
+		simulatorView.updateQueueView(entranceCarQueue.carsInQueue(), entrancePassQueue.carsInQueue(), maxEntranceCarQueue, maxSpecialCarQueue);
 	}
 
 	/**
@@ -485,7 +486,7 @@ public final class Simulator {
 	}
 
 	public static void setMaxEntranceCarQueue(int MECQ) {
-		maxEntranceCarQueue = MECQ;
+		maxEntranceCarQueue = MECQ;;
 	}
 
 	public static int getDoorgeredenAutos() {
@@ -493,11 +494,11 @@ public final class Simulator {
 	}
 
 	public static int getMaxSpecialCarQueue() {
-		return maxEntranceCarQueue;
+		return maxSpecialCarQueue;
 	}
 
 	public static void setMaxSpecialCarQueue(int MSCQ) {
-		maxEntranceCarQueue = MSCQ;
+		maxSpecialCarQueue = MSCQ;
 	}
 
 	public static int getDoorgeredenSpecialeAutos() {

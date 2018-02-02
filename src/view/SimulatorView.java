@@ -24,6 +24,7 @@ public class SimulatorView extends JPanel {
     private BarView barchart;
     private RevenueBarView revenuebarchart;
     private LineChartView linechart;
+    private QueueView queueview;
 
     /**
      * Creeert de simulatie
@@ -48,6 +49,7 @@ public class SimulatorView extends JPanel {
         revenuebarchart = new RevenueBarView();
         linechart = new LineChartView();
         linechart.dataNul();
+        queueview = new QueueView();
 
         
         tabs = new JTabbedPane();
@@ -56,6 +58,7 @@ public class SimulatorView extends JPanel {
 		tabs.addTab("BarView", barchart);
 		tabs.addTab("Omzet", revenuebarchart);
 		tabs.addTab("LineChart", linechart);
+		tabs.addTab("Wachtrijen", queueview);
         
         screen=new JFrame("Project Parkeergarage");
         Container contentPane = screen.getContentPane();
@@ -113,6 +116,10 @@ public class SimulatorView extends JPanel {
     
     public void updateLineChart(int[] uren) {
     	linechart.repaint(uren);
+    }
+    
+    public void updateQueueView(int gewonewacht, int specialewacht, int maxgewone, int maxspeciale) {
+    	queueview.repaint(gewonewacht, specialewacht, maxgewone, maxspeciale);
     }
     
     public Car getCarAt(Location location) {
