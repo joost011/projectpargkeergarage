@@ -1,7 +1,9 @@
 package controller;
 
 import javax.swing.*;
-import logic.*;
+
+import model.*;
+
 import java.awt.FlowLayout;
 import java.awt.event.*;
 

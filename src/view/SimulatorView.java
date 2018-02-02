@@ -4,10 +4,9 @@ package view;
 import java.awt.*;
 
 import controller.*;
-
+import model.*;
 
 import javax.swing.*;
-import logic.*;
 
 public class SimulatorView extends JPanel {
     private CarParkView carParkView;

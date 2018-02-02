@@ -1,6 +1,9 @@
-package logic;
+package model;
 
 import java.util.Random;
+
+import controller.Simulator;
+
 import java.awt.*;
 
 public class AdHocCar extends Car {

@@ -1,8 +1,7 @@
 package runner;
 
-import logic.Simulator;
 import view.*;
-import main.Main;
+import controller.Simulator;
 
 public class Runner {
 	public static void main(String[] args) {

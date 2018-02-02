@@ -1,8 +1,13 @@
-package logic;
+package controller;
 
-import java.awt.Color;
+
 import java.util.Random;
-import controller.*;
+import model.AdHocCar;
+import model.Car;
+import model.CarQueue;
+import model.Location;
+import model.ParkingPassCar;
+import model.ReservationCar;
 import view.*;
 
 public final class Simulator {
@@ -12,7 +17,7 @@ public final class Simulator {
 	private static final String RES = "3";
 
 	private static CarQueue entranceCarQueue;
-	private static CarQueue entranceResQueue;
+
 	private static CarQueue entrancePassQueue;
 	private CarQueue paymentCarQueue;
 	private CarQueue exitCarQueue;
@@ -62,7 +67,7 @@ public final class Simulator {
 	public Simulator() {
 		entranceCarQueue = new CarQueue();						// Start een entranceQueue
 		entrancePassQueue = new CarQueue();						// Start een abonnement Queue
-		entranceResQueue = new CarQueue();						// Start een Reservatie Queue
+
 		paymentCarQueue = new CarQueue();						// Start een betalings Queue
 		exitCarQueue = new CarQueue();							// Start een exit Queue
 		simulatorView = new SimulatorView(3, 6, 30, this);		// Start een nieuwe SimulatorView
