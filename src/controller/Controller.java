@@ -5,7 +5,7 @@ import logic.*;
 import java.awt.FlowLayout;
 import java.awt.event.*;
 
-public class Controller  extends AbstractController  implements ActionListener, Runnable {
+public class Controller  extends JPanel  implements ActionListener, Runnable {
 
 	private JButton plus;
 	private JButton plus100;
@@ -15,7 +15,7 @@ public class Controller  extends AbstractController  implements ActionListener, 
 	private Simulator simulator;;
 
 	public Controller(Simulator simulator) {
-		super(simulator);
+		//super(simulator);
 
 
 

@@ -61,13 +61,13 @@ public class BarView extends JPanel {
 		g.drawString("0", 20, 300);
 		
 		g.setColor(Color.GREEN);
-		g.fillRect(65, 9, 10, 10);
+		g.fillRect(60, 9, 10, 10);
 		
 		g.setColor(Color.BLUE);
-		g.fillRect(65, 25, 10, 10);
+		g.fillRect(60, 25, 10, 10);
 		
 		g.setColor(Color.RED);
-		g.fillRect(65, 41, 10, 10);
+		g.fillRect(60, 41, 10, 10);
 	}
 	
 	public void repaint(int res, int abo, int rand, int empty){
