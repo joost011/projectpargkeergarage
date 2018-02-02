@@ -1,4 +1,4 @@
-package logic;
+package model;
 
 import java.util.Random;
 import java.awt.*;

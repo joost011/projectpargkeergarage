@@ -5,7 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
-import logic.*;
+
+import controller.Simulator;
+import model.*;
 import runner.*;
 
 public class StatisticsView extends JPanel implements ActionListener{
