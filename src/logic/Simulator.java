@@ -486,7 +486,7 @@ public final class Simulator {
 	}
 
 	public static void setMaxEntranceCarQueue(int MECQ) {
-		maxEntranceCarQueue = MECQ;;
+		maxEntranceCarQueue = MECQ;
 	}
 
 	public static int getDoorgeredenAutos() {
