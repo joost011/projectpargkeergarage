@@ -58,7 +58,7 @@ public class StatisticsView extends JPanel implements ActionListener{
 		dagen[6] = "Zondag";
 		
 		viewpanel = new JPanel();
-		viewpanel.setLayout(new GridLayout(26,10));
+		viewpanel.setLayout(new GridLayout(230,10));
 		
 		tijd = new JLabel("Tijdstip: 0:00");
 		viewpanel.add(tijd);
@@ -104,22 +104,6 @@ public class StatisticsView extends JPanel implements ActionListener{
 		weekendpasdaankomst = new JTextField(String.valueOf(Simulator.getweekendPassArrivals()));
 		viewpanel.add(weekendpasdaankomst);
 		
-		update = new JButton("Update");
-		update.addActionListener(this);
-		viewpanel.add(update);
-		
-		gewonewachtrij = new JLabel("Gewone wachtrij: "+String.valueOf(Simulator.getNormalCarQueue()));
-		viewpanel.add(gewonewachtrij);
-		
-		gewonedoorgereden = new JLabel("Doorgereden: "+String.valueOf(Simulator.getDoorgeredenAutos()));
-		viewpanel.add(gewonedoorgereden);
-		
-		paswachtrij = new JLabel("Pas wachtrij: "+String.valueOf(Simulator.getPassCarQueue()));
-		viewpanel.add(paswachtrij);
-		
-		specialedoorgereden = new JLabel("Doorgereden (speciaal): "+String.valueOf(Simulator.getDoorgeredenAutos()));
-		viewpanel.add(specialedoorgereden);
-		
 		maxgewonewachtrijlabel = new JLabel("Maximale wachtrij (normale auto's)");
 		viewpanel.add(maxgewonewachtrijlabel);
 		maxgewonewachtrij = new JTextField(String.valueOf(Simulator.getMaxEntranceCarQueue()));
@@ -130,8 +114,32 @@ public class StatisticsView extends JPanel implements ActionListener{
 		maxspecialewachtrij = new JTextField(String.valueOf(Simulator.getMaxSpecialCarQueue()));
 		viewpanel.add(maxspecialewachtrij);
 		
+		gewonewachtrij = new JLabel("Gewone wachtrij: "+String.valueOf(Simulator.getNormalCarQueue()));
+		viewpanel.add(gewonewachtrij);
+		
+		gewonedoorgereden = new JLabel("Doorgereden: "+String.valueOf(Simulator.getDoorgeredenAutos()));
+		viewpanel.add(gewonedoorgereden);
+		
+		paswachtrij = new JLabel("Speciale wachtrij: "+String.valueOf(Simulator.getPassCarQueue()));
+		viewpanel.add(paswachtrij);
+		
+		specialedoorgereden = new JLabel("Doorgereden (speciaal): "+String.valueOf(Simulator.getDoorgeredenAutos()));
+		viewpanel.add(specialedoorgereden);
+		
+		
+		update = new JButton("Update");
+		update.addActionListener(this);
+		viewpanel.add(update);
+		
 		add(viewpanel);
 		setVisible(true);
+	}
+	
+	public void paint(Graphics g){
+		super.paintChildren(g);
+		g.setColor(Color.BLACK);
+		g.drawLine(229, 50, 229,1000);
+		
 	}
 	
 	
@@ -159,7 +167,7 @@ public class StatisticsView extends JPanel implements ActionListener{
 		gewonewachtrij.setText("Gewone wachtrij: "+String.valueOf(Simulator.getNormalCarQueue()));
 		paswachtrij.setText("Speciale wachtrij: "+String.valueOf(Simulator.getPassCarQueue()));
 		gewonedoorgereden.setText("Doorgereden: "+String.valueOf(Simulator.getDoorgeredenAutos()));
-		specialedoorgereden.setText("Doorgereden (speicaal): "+String.valueOf(Simulator.getDoorgeredenSpecialeAutos()));
+		specialedoorgereden.setText("Doorgereden (speciaal): "+String.valueOf(Simulator.getDoorgeredenSpecialeAutos()));
 		verstrekendagenlabel.setText("Verstreken dagen: "+String.valueOf(verstrekendagen));
 	}
 	

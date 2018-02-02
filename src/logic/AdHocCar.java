@@ -8,7 +8,7 @@ public class AdHocCar extends Car {
 	
     public AdHocCar() {
     	Random random = new Random();
-    	int stayMinutes = (int) (15 + random.nextFloat() * 3 * 100);
+    	int stayMinutes = (int) (15 + random.nextFloat() * 4 * 100);
         this.setMinutesLeft(stayMinutes);
         this.setHasToPay(true);
         Double stayMinutesDouble = 1.0 * stayMinutes;
