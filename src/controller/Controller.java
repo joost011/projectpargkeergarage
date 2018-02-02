@@ -11,6 +11,7 @@ public class Controller  extends AbstractController  implements ActionListener, 
 	private JButton plus100;
 	private JButton start;
 	private JButton stop;
+	private JButton switchview;
 	private Simulator simulator;;
 
 	public Controller(Simulator simulator) {
@@ -29,6 +30,8 @@ public class Controller  extends AbstractController  implements ActionListener, 
 		stop = new JButton("Stop");
 		stop.setEnabled(false);
 		stop.addActionListener(this);
+		switchview = new JButton("Switch view");
+		switchview.addActionListener(this);
 
 
 		this.setLayout(new FlowLayout());
@@ -36,6 +39,7 @@ public class Controller  extends AbstractController  implements ActionListener, 
 		add(plus100);
 		add(start);
 		add(stop);
+		add(switchview);
 		setVisible(true);
 
 	}
@@ -89,7 +93,10 @@ public class Controller  extends AbstractController  implements ActionListener, 
 			simulator.stop();
 			
 		}
-
+		
+		if(e.getSource()==switchview) {
+			simulator.switchView();
+		}
 	}
 
 

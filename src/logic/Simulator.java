@@ -521,5 +521,9 @@ public final class Simulator {
 		vorigrevenue = vorigrevenue + revenuedag2;
 		revenuevandaag = 0;
 	}
+	
+	public void switchView() {
+		simulatorView.switchView();
+	}
 
 }

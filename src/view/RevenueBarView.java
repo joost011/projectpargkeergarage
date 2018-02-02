@@ -51,6 +51,7 @@ public class RevenueBarView extends JPanel {
 	
 	public void paint(Graphics g) {
 		super.paintChildren(g);
+		this.setPreferredSize(new Dimension(320, 750));
 		
 		g.setColor(Color.GRAY);
 		g.fillRect(50,700-dag5/scale, 30,dag5/scale);

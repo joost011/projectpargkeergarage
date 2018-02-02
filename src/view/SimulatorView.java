@@ -20,11 +20,14 @@ public class SimulatorView extends JPanel {
     private Controller controller;
     private StatisticsView statics;
     private JTabbedPane tabs;
+    private JPanel tabspanel;
     private PieChartView2 piechart;
     private BarView barchart;
     private RevenueBarView revenuebarchart;
     private LineChartView linechart;
     private QueueView queueview;
+    private int extendedview = 0;
+    private String tabTitle;
 
     /**
      * Creeert de simulatie
@@ -51,14 +54,15 @@ public class SimulatorView extends JPanel {
         linechart.dataNul();
         queueview = new QueueView();
 
-        
+        tabspanel = new JPanel();
+        tabspanel.setPreferredSize(new Dimension(650, 750));
         tabs = new JTabbedPane();
-		tabs.setPreferredSize(new Dimension(320, 10));
+		tabs.setPreferredSize(new Dimension(320, 750));
 		tabs.addTab("PieChart", piechart);
 		tabs.addTab("BarView", barchart);
 		tabs.addTab("Omzet", revenuebarchart);
 		tabs.addTab("LineChart", linechart);
-		tabs.addTab("Wachtrijen", queueview);
+		tabs.add("Wachtrijen", queueview);
         
         screen=new JFrame("Project Parkeergarage");
         Container contentPane = screen.getContentPane();
@@ -300,6 +304,64 @@ public class SimulatorView extends JPanel {
         }
     }
 
-	
+	public void switchView() {
+		if(extendedview == 0) {
+			int index = tabs.getSelectedIndex();
+			tabTitle = tabs.getTitleAt(index);
+			
+			if(tabTitle == "PieChart") {
+				tabs.remove(piechart);
+				tabspanel.add(piechart, BorderLayout.WEST);
+			}
+			if(tabTitle == "BarView") {
+				tabs.remove(barchart);
+				tabspanel.add(barchart, BorderLayout.WEST);
+			}
+			if(tabTitle == "Omzet") {
+				tabs.remove(revenuebarchart);
+				tabspanel.add(revenuebarchart, BorderLayout.WEST);
+			}
+			if(tabTitle == "LineChart") {
+				tabs.remove(linechart);
+				tabspanel.add(linechart, BorderLayout.WEST);
+			}
+			if(tabTitle == "Wachtrijen") {
+				tabs.remove(queueview);
+				tabspanel.add(queueview, BorderLayout.WEST);
+			}
+			tabspanel.add(tabs, BorderLayout.EAST);
+			screen.getContentPane().remove(tabs);
+			screen.getContentPane().add(tabspanel, BorderLayout.EAST);
+			screen.setSize(1700, 820);
+			extendedview = 1;
+		}
+		else {
+			if(tabTitle == "PieChart") {
+				tabs.addTab(tabTitle, piechart);
+				tabspanel.remove(piechart);
+			}
+			if(tabTitle == "BarView") {
+				tabs.addTab(tabTitle, barchart);
+				tabspanel.remove(barchart);
+			}
+			if(tabTitle == "Omzet") {
+				tabs.addTab(tabTitle, revenuebarchart);
+				tabspanel.remove(revenuebarchart);
+			}
+			if(tabTitle == "LineChart") {
+				tabs.addTab(tabTitle, linechart);
+				tabspanel.remove(linechart);
+			}
+			if(tabTitle == "Wachtrijen") {
+				tabs.addTab(tabTitle, queueview);
+				tabspanel.remove(queueview);
+			}
+			tabspanel.remove(tabs);
+			screen.getContentPane().remove(tabspanel);
+			screen.getContentPane().add(tabs, BorderLayout.EAST);
+			screen.setSize(1400, 820);
+			extendedview = 0;
+		}
+	}
 
 }

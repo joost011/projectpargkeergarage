@@ -33,6 +33,7 @@ public class PieChartView2 extends JPanel {
 	
 	public PieChartView2() {
 		this.setOpaque(false);
+		this.setPreferredSize(new Dimension(320, 750));
 		thePanel = new JPanel();
 		thePanel.setLayout(new GridLayout(45,80));
 	

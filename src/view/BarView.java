@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 
@@ -21,6 +22,7 @@ public class BarView extends JPanel {
 	
 	public BarView() {
 		this.setOpaque(false);
+		this.setPreferredSize(new Dimension(320, 750));
 		
 		barpanel = new JPanel();
 		barpanel.setLayout(new GridLayout(45,80)); 

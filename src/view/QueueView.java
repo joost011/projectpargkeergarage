@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 
@@ -15,13 +16,18 @@ public class QueueView extends JPanel {
 	private int beginpunt;
 	private JLabel gewonelabel;
 	private JLabel specialelabel;
+	private JLabel empty;
 	private JPanel queuepanel;
 	
 	public QueueView() {
 		this.setOpaque(false);
+		this.setPreferredSize(new Dimension(320, 750));
 		
 		queuepanel = new JPanel();
-		queuepanel.setLayout(new GridLayout(45,80)); 
+		queuepanel.setLayout(new GridLayout(45,50)); 
+		
+		empty = new JLabel("");
+		queuepanel.add(empty);
 		
 		gewonelabel = new JLabel("Gewone wachtrij");
 		queuepanel.add(gewonelabel);
@@ -82,10 +88,10 @@ public class QueueView extends JPanel {
 		}
 		
 		g.setColor(Color.RED);
-		g.fillRect(85, 9, 10, 10);
+		g.fillRect(85, 25, 10, 10);
 		
 		g.setColor(Color.CYAN);
-		g.fillRect(85, 25, 10, 10);
+		g.fillRect(85, 41, 10, 10);
 		
 	}
 	
