@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
@@ -189,8 +190,8 @@ public class StatisticsView extends JPanel implements ActionListener{
 		plusuur();
 	}
 	
-	public void actionPerformed(java.awt.event.ActionEvent ev)
-	{
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==update) {
 		String snel = snelheid.getText();
 		String weekautos = weekdagaankomst.getText();
 		String weekendautos = weekendaankomst.getText();
@@ -208,5 +209,6 @@ public class StatisticsView extends JPanel implements ActionListener{
 		Simulator.setMaxEntranceCarQueue(Integer.parseInt(maximaalgewonewachtrij));
 		Simulator.setMaxSpecialCarQueue(Integer.parseInt(maximaalspeciaalwachtrij));
 		Simulator.setRegularPricePerHour(deprijsdouble);
+		}
 	}
 }

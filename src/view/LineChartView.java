@@ -2,6 +2,7 @@ package view;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.util.Arrays;
@@ -35,7 +36,7 @@ public class LineChartView extends JPanel {
 	
 	public void paint(Graphics g) {
 		super.paintChildren(g);
-		
+		this.setPreferredSize(new Dimension(320, 750));
 		
 		g.setColor(Color.BLACK);
 		g.drawLine(30,650,280,650);

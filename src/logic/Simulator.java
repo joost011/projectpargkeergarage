@@ -189,6 +189,7 @@ public final class Simulator {
 		simulatorView.updatePieChart(currentResCar,currentAboCar,currentRandCar,currentEmpty, revenue); // update PieChart view met nieuwe variabelen en revenue
 		simulatorView.updateRevenueBarChart(revenuevandaag, revenuedag2, revenuedag3, revenuedag4, revenuedag5);
 		simulatorView.updateLineChart(autoUren);
+		simulatorView.updateQueueView(entranceCarQueue.carsInQueue(), entrancePassQueue.carsInQueue(), maxEntranceCarQueue, maxSpecialCarQueue);
 	}
 
 	/**
@@ -395,7 +396,7 @@ public final class Simulator {
 		case AD_HOC: 
 			for (int i = 0; i < numberOfCars; i++) {
 				int  n = rand.nextInt(maxEntranceCarQueue +1); // n = random number between 0 and the max number of normal cars in queue
-				if (n > entranceCarQueue.carsInQueue() || entranceCarQueue.carsInQueue() == 0) {
+				if (n > entranceCarQueue.carsInQueue() || entranceCarQueue.carsInQueue() < maxEntranceCarQueue/10) {
 					entranceCarQueue.addCar(new AdHocCar());
 				}
 				else {
@@ -406,7 +407,7 @@ public final class Simulator {
 		case PASS:
 			for (int i = 0; i < numberOfCars; i++) {
 				int  n = rand.nextInt(maxSpecialCarQueue +1);
-				if (n > entrancePassQueue.carsInQueue() || entrancePassQueue.carsInQueue() == 0) {
+				if (n > entrancePassQueue.carsInQueue() || entrancePassQueue.carsInQueue() < maxSpecialCarQueue/10) {
 					entrancePassQueue.addCar(new ParkingPassCar());
 				}
 				else {
@@ -417,7 +418,7 @@ public final class Simulator {
 		case RES:
 			for (int i = 0; i < numberOfCars; i++) {
 				int  n = rand.nextInt(maxSpecialCarQueue +1);
-				if (n > entrancePassQueue.carsInQueue() || entrancePassQueue.carsInQueue() == 0) {
+				if (n > entrancePassQueue.carsInQueue() || entrancePassQueue.carsInQueue() < maxSpecialCarQueue/10) {
 					entrancePassQueue.addCar(new ReservationCar());
 				}
 				else {
@@ -493,11 +494,11 @@ public final class Simulator {
 	}
 
 	public static int getMaxSpecialCarQueue() {
-		return maxEntranceCarQueue;
+		return maxSpecialCarQueue;
 	}
 
 	public static void setMaxSpecialCarQueue(int MSCQ) {
-		maxEntranceCarQueue = MSCQ;
+		maxSpecialCarQueue = MSCQ;
 	}
 
 	public static int getDoorgeredenSpecialeAutos() {
@@ -519,6 +520,10 @@ public final class Simulator {
 		revenuedag2 = revenuevandaag;
 		vorigrevenue = vorigrevenue + revenuedag2;
 		revenuevandaag = 0;
+	}
+	
+	public void switchView() {
+		simulatorView.switchView();
 	}
 
 }
